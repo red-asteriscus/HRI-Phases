@@ -7,6 +7,10 @@
     <Dialogs>
         <Dialog name="ExampleDialog" src="behavior_1/ExampleDialog/ExampleDialog.dlg" />
         <Dialog name="Arrival_Seating" src="Arrival_Seating/Arrival_Seating.dlg" />
+        <Dialog name="Seating" src="Seating/Seating.dlg" />
+        <Dialog name="Attendance" src="Attendance/Attendance.dlg" />
+        <Dialog name="SeatHelp" src="SeatHelp/SeatHelp.dlg" />
+        <Dialog name="Time" src="Time/Time.dlg" />
     </Dialogs>
     <Resources>
         <File name="suit picture" src="html/pics/suit_picture.png" />
@@ -20,10 +24,33 @@
         <File name="wlc" src="html/pics/wlc.jpg" />
         <File name="script" src="html/script.js" />
         <File name="style" src="html/style.css" />
+        <File name="all" src="html/css/all.css" />
+        <File name="formatting" src="html/css/formatting.css" />
+        <File name="home" src="html/css/home.css" />
+        <File name="w3" src="html/css/w3.css" />
+        <File name="all" src="html/js/all.js" />
+        <File name="displayimage" src="html/js/displayimage.js" />
+        <File name="displayinfo" src="html/js/displayinfo.js" />
+        <File name="fastclick" src="html/js/fastclick.js" />
+        <File name="help" src="html/js/help.js" />
+        <File name="index" src="html/js/index.js" />
+        <File name="jquery" src="html/js/jquery.js" />
+        <File name="qievents" src="html/js/qievents.js" />
+        <File name="vars" src="html/js/vars.js" />
+        <File name="confirmation" src="html/pages/confirmation.html" />
+        <File name="displayimage" src="html/pages/displayimage.html" />
+        <File name="displayinfo" src="html/pages/displayinfo.html" />
+        <File name="displaytext" src="html/pages/displaytext.html" />
+        <File name="getinput" src="html/pages/getinput.html" />
+        <File name="help" src="html/pages/help.html" />
     </Resources>
     <Topics>
         <Topic name="ExampleDialog_enu" src="behavior_1/ExampleDialog/ExampleDialog_enu.top" topicName="ExampleDialog" language="en_US" />
         <Topic name="Arrival_Seating_enu" src="Arrival_Seating/Arrival_Seating_enu.top" topicName="Arrival_Seating" language="en_US" />
+        <Topic name="Seating_enu" src="Seating/Seating_enu.top" topicName="Seating" language="en_US" />
+        <Topic name="Attendance_enu" src="Attendance/Attendance_enu.top" topicName="Attendance" language="en_US" />
+        <Topic name="SeatHelp_enu" src="SeatHelp/SeatHelp_enu.top" topicName="SeatHelp" language="en_US" />
+        <Topic name="Time_enu" src="Time/Time_enu.top" topicName="Time" language="en_US" />
     </Topics>
     <IgnoredPaths />
     <Translations auto-fill="en_US">

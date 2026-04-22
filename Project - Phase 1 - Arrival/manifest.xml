@@ -15,8 +15,8 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent topicName="Arrival_Seating" typeVersion="1.0">
-   <topic path="Arrival_Seating/Arrival_Seating_enu.top" language="en_US"/>
+  <dialogContent typeVersion="1.0" topicName="Arrival_Seating">
+   <topic language="en_US" path="Arrival_Seating/Arrival_Seating_enu.top"/>
   </dialogContent>
  </contents>
 </package>

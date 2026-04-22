@@ -1,4 +1,4 @@
-topic: ~Arrival_Seating()
+topic: ~Attendance()
 language: enu
 
 # --- Defining Concepts ---
@@ -40,29 +40,12 @@ u:(~hello)
 proposal: %arrival 
     $displayImage="pics/Graduation_Welcome.jpg"
     ^start(animations/Stand/Gestures/Explain_1) ~break1000 Are you here for the Computer Engineering commencement? ^wait(animations/Stand/Gestures/Hey_1)
-    u1:(~yes) Excellent. ^gotoReactivate(helpSeat)
+    u1:(~yes) Excellent. ^gotoReactivate(Seating)
     u1:(~no) No problem. I am here if you need assistance. $onStopped=1
 
-    u1: (e:yesAnswer) Excellent. ^gotoReactivate(helpSeat)
-    u1: (e:noAnswer) No problem. I am here if you need assistance. ^gotoReactivate(helpSeat)
+    u1: (e:yesAnswer) Excellent. ^gotoReactivate(Seating)
+    u1: (e:noAnswer) No problem. I am here if you need assistance. $onStopped=1
     
+    proposal: %Seating $Seating=1 $onStopped=1 
 
-
-proposal: %helpSeat 
-    $displayImage="pics/seats.png"
-    $seatingq=1;
-    Do you need help finding a seat? 
-    u1:(~yes) Got it. ^gotoReactivate(seatingHelp)
-    u1:(~no) No problem. I am here if you need assistance. Enjoy the event! $onStopped=1
-
-proposal: %seatingHelp 
-    Are you a staff member ~break50 or a guest?
-    $displayImage="pics/seating_map.png"
-    u1:(~staff) ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
-    u1:(~guest) ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
-
-proposal: %anythingElse 
-    $displayImage="pics/suit_picture.png"
-    ^start(animations/Stand/Gestures/PointLeft_1) ~break500 Would you like to know when the ceremony starts? ^wait(animations/Stand/Gestures/PointLeft_1)
-    u1:(~yes) The ceremony begins at five. Enjoy! $onStopped=1
-    u1:(~no) ^start(animations/Stand/Gestures/Bow_1) ~break500 Okay,Enjoy the ceremony ~break250 and congratulations to your graduate! ^wait(animations/Stand/Gestures/Bow_1) $onStopped=1
+    
