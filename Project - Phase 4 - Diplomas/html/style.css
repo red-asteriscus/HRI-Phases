@@ -1,0 +1,89 @@
+/* Ensure the page is clean, white, and covers the full tablet screen */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Stops scrolling on the robot */
+    background-color: #ffffff;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Vertically and horizontally center everything on Pepper's chest */
+#wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 800px; /* Specific to Pepper's tablet height */
+    width: 100%;
+}
+
+#container, #thank-you {
+    text-align: center;
+    width: 80%; /* Don't let text go edge-to-edge */
+}
+
+/* Larger, bolder title */
+h1 {
+    font-size: 5rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+/* Size and spacing for the stars */
+.star-rating {
+    font-size: 150px;
+    color: #ddd; /* Default star color */
+    margin: 40px 0;
+}
+
+.star {
+    cursor: pointer;
+    margin: 0 15px;
+    transition: transform 0.1s;
+}
+
+/* Star color when active/selected (use university color here) */
+.star.active {
+    color: #f1c40f; /* University Gold example */
+    text-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+}
+
+/* Basic instruction text style */
+#instruction {
+    font-size: 1.8rem;
+    color: #7f8c8d;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+/* THE SUBMIT BUTTON STYLING */
+#submit-btn {
+    font-size: 2.8rem;
+    font-weight: 600;
+    padding: 25px 90px;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    
+    /* Use university main color */
+    background-color: #2c3e50; 
+    color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+#submit-btn:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+#submit-btn:active {
+    transform: scale(0.96);
+}
+
+/* Styling for the hidden thank-you screen */
+#thank-you h1 { font-size: 10rem; color: #27ae60; margin: 0;}
+#thank-you h2 { font-size: 4rem; color: #2c3e50; margin-top: 20px;}
+#thank-you p { font-size: 2rem; color: #7f8c8d; }

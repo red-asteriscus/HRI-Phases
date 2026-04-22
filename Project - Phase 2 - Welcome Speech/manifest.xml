@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package version="0.0.0" uuid="project-98b01d">
+ <names>
+  <name lang="en_US">Untitled</name>
+ </names>
+ <supportedLanguages>
+  <language>en_US</language>
+ </supportedLanguages>
+ <descriptionLanguages>
+  <language>en_US</language>
+ </descriptionLanguages>
+ <contents>
+  <behaviorContent path="behavior_1">
+   <userRequestable/>
+   <nature>interactive</nature>
+   <permissions/>
+  </behaviorContent>
+  <dialogContent topicName="welcome" typeVersion="1.0">
+   <topic language="en_US" path="welcome/welcome_enu.top"/>
+  </dialogContent>
+  <dialogContent topicName="Introducing_Guest" typeVersion="1.0">
+   <topic language="en_US" path="Introducing_Guest/Introducing_Guest_enu.top"/>
+  </dialogContent>
+  <dialogContent topicName="Diploma_Segment" typeVersion="1.0">
+   <topic language="en_US" path="Diploma_Segment/Diploma_Segment_enu.top"/>
+  </dialogContent>
+  <dialogContent topicName="Closing" typeVersion="1.0">
+   <topic language="en_US" path="Closing/Closing_enu.top"/>
+  </dialogContent>
+  <dialogContent topicName="Feedback_Survey" typeVersion="1.0">
+   <topic language="en_US" path="Feedback_Survey/Feedback_Survey_enu.top"/>
+  </dialogContent>
+  <dialogContent topicName="Arrival_Seating" typeVersion="1.0">
+   <topic language="en_US" path="Arrival_Seating/Arrival_Seating_enu.top"/>
+  </dialogContent>
+ </contents>
+</package>

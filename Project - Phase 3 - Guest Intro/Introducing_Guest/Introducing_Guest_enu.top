@@ -1,0 +1,25 @@
+topic: ~Introducing_Guest()
+language: enu
+
+concept:(hello) [hello hi hey]
+concept:(thx) ["thank you" thanks gracias merci]
+concept:(repeat) [repeat]
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break250) \pau=250\
+concept:(break500) \pau=500\
+
+# Dialogue Logic
+u:(e:onStart)
+$displayImage="pics/suit_picture.png"
+    ^start(animations/Stand/Gestures/PointRight_1)
+    "Please ~break50 join me in welcoming ~break50 our Guest Speaker,~break100 a leading expert ~break100 in Software Engineering." ~break500
+    "Doctor Engineer Marcel Daccache."
+    ^wait(animations/Stand/Gestures/PointRight_1)
+
+# Specific interaction with the Guest Speaker
+u:(["Thank you Pepper" "Thank you" ~thx])
+    ^start(animations/Stand/Gestures/Bow_1)
+    "The pleasure is mine."
+    ^wait(animations/Stand/Gestures/Bow_1)
+    $onStopped=1

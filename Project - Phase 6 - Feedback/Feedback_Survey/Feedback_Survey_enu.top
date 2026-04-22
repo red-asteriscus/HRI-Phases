@@ -1,0 +1,31 @@
+topic: ~Feedback_Survey()
+language: enu
+
+# Concepts
+concept:(rating) [1 2 3 4 5 "one" "two" "three" "four" "five"]
+concept:(break100) \pau=100\
+concept:(break500) \pau=500\
+
+# 1. Triggered when the box starts
+u:(e:onStart)
+    # Note: We removed $onShowWebview here because your Python script 
+    # is already doing it successfully!
+    ^start(animations/Stand/Gestures/Explain_3)
+    "How would you rate from 1 to 5, ~break100 the organization and timing ~break100 of today’s ceremony? ~break500 Your feedback helps the university improve."
+
+# 2. Handle voice input
+u:(~rating)
+    $Feedback/VoiceInput=$1 
+    ^start(animations/Stand/Gestures/Nod_1)
+    "I have marked $1 stars for you. ~break200 Please tap submit on my tablet to save your response."
+
+# 3. Handle tablet touch input
+u:(e:Feedback/TouchInput)
+    ^start(animations/Stand/Gestures/Joy_1)
+    "Thank you for the $Feedback/TouchInput star rating! ~break500 Your response has been saved. Have a wonderful day!"
+    $onStopped=1
+
+# 4. Error Handling
+u:(e:Dialog/NotUnderstood)
+    ^start(animations/Stand/Gestures/Confused_1)
+    "I'm sorry, ~break200 could you please give me a rating between 1 and 5? Or you can just tap the stars on my screen."

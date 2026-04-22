@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, height=800, user-scalable=no, initial-scale=1">
+    <title>Graduation Feedback</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div id="container">
+            <h1 id="title">Rate today's ceremony</h1>
+            
+            <div class="star-rating">
+                <span class="star" id="star1" onclick="highlightStars(1)">&#9733;</span>
+                <span class="star" id="star2" onclick="highlightStars(2)">&#9733;</span>
+                <span class="star" id="star3" onclick="highlightStars(3)">&#9733;</span>
+                <span class="star" id="star4" onclick="highlightStars(4)">&#9733;</span>
+                <span class="star" id="star5" onclick="highlightStars(5)">&#9733;</span>
+            </div>
+            
+            <p id="instruction">Tap a star, then press Submit</p>
+            
+            <button id="submit-btn" disabled onclick="submitRating()">Submit</button>
+        </div>
+
+        <div id="thank-you" style="display:none;">
+            <div class="check-icon">✓</div>
+            <h2>Thank You, Graduate!</h2>
+            <p>Your feedback is very valuable.</p>
+        </div>
+    </div>
+
+    <script src="libs/qimessaging/1.0/qimessaging.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

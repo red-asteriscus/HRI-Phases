@@ -1,0 +1,25 @@
+topic: ~Closing()
+language: enu
+
+concept:(bye) [bye goodbye "see you" farewell]
+concept:(thx) ["thank you" thanks]
+concept:(break50) \pau=50\
+concept:(break200) \pau=200\
+concept:(break1000) \pau=1000\
+
+# Dialogue Logic
+u:(e:onStart)
+    $displayImage="pics/suit_picture.png"
+^start(animations/Stand/Gestures/Explain_2)
+    "Before you head out, ~break200 we would love to hear about your experience today." ~break500
+    ^start(animations/Stand/Gestures/You_1)
+    "Please take a moment to fill out ~break50 our graduation survey." ~break500
+    ^start(animations/Stand/Gestures/Explain_8)
+    "I will be waiting for you ~break50 at the exit ~break200 to personally collect your feedback!" ~break500
+    ^start(animations/Stand/Gestures/BowShort_1)
+    "Thank you, ~break100 and once again, ~break200 congratulations!"
+    $onStopped=1
+
+# Universal Responses
+u:(~bye) ^start(animations/Stand/Gestures/BowShort_1) Goodbye! Enjoy the celebrations!
+u:(~thx) My pleasure!

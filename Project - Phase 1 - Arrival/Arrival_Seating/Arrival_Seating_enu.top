@@ -1,0 +1,66 @@
+topic: ~Arrival_Seating()
+language: enu
+
+# --- Defining Concepts ---
+concept:(hello) [hello hi hey "good morning" greetings]
+concept:(yes) [yes "all right" sure "why not" ok certainly "very well" yep yea definitely amen]
+concept:(no) [no nope "don't want" "no way" never "not at all"]
+concept:(repeat) [repeat]
+concept:(bye) [bye goodbye "bye bye" "tata" "see you" adios cheerio "so long" farewell "have a nice day"]
+concept:(guest) [guest visitor family friend]
+concept:(staff) [staff faculty teacher professor employee organizer]
+concept:(thx) ["thank you" thanks gracias merci]
+concept:(distinction) [distinction honors "top of the class" "great grades"]
+concept:(rating) [1 2 3 4 5 "one" "two" "three" "four" "five"]
+
+# --- Defining Pauses ---
+concept:(break50) \pau=50\
+concept:(break250) \pau=250\+
+concept:(break500) \pau=500\
+concept:(break1000) \pau=1000\
+concept:(break2000) \pau=2000\
+concept:(break3000) \pau=3000\
+
+# When the user says "repeat", Pepper repeats the last line
+u:(~repeat) ^repeat
+
+# When the user says "thank you", Pepper acknowledges it
+u:(~thx) ^start(animations/Stand/Gestures/Bow_1) You are very welcome! ~break500
+
+# Triggered automatically when the behavior starts or a person is detected
+u:(e:onStart) 
+    $displayImage="pics/suit_picture.png"
+    ^start(animations/Stand/Gestures/Hey_1)
+    ~break250 Welcome to USEK. ~break50 I am Pepper. ~break500
+    ^start(animations/Stand/Gestures/Explain_4)
+    $showMap=1 
+    ^wait(animations/Stand/Gestures/Explain_4)
+    ^gotoReactivate(arrival)
+
+# Triggered if someone manually says hello
+u:(~hello) 
+    ^start(animations/Stand/Gestures/Hey_1) ~hello ^gotoReactivate(arrival)
+
+proposal: %arrival 
+    $displayImage="pics/Graduation_Welcome.jpg"
+    ^start(animations/Stand/Gestures/Explain_1) ~break1000 Are you here for the Computer Engineering commencement? ^wait(animations/Stand/Gestures/Hey_1)
+    u1:(~yes) Excellent. ^gotoReactivate(helpSeat)
+    u1:(~no) No problem. I am here if you need assistance. $onStopped=1
+
+proposal: %helpSeat 
+    $displayImage="pics/seats.png"
+    Do you need help finding a seat?
+    u1:(~yes) Got it. ^gotoReactivate(seatingHelp)
+    u1:(~no) No problem. I am here if you need assistance. Enjoy the event! $onStopped=1
+
+proposal: %seatingHelp 
+    Are you a staff member ~break50 or a guest?
+    $displayImage="pics/seating_map.png"
+    u1:(~staff) ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
+    u1:(~guest) ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
+
+proposal: %anythingElse 
+    $displayImage="pics/suit_picture.png"
+    ^start(animations/Stand/Gestures/PointLeft_1) ~break500 Would you like to know when the ceremony starts? ^wait(animations/Stand/Gestures/PointLeft_1)
+    u1:(~yes) The ceremony begins at five. Enjoy! $onStopped=1
+    u1:(~no) ^start(animations/Stand/Gestures/Bow_1) ~break500 Okay,Enjoy the ceremony ~break250 and congratulations to your graduate! ^wait(animations/Stand/Gestures/Bow_1) $onStopped=1

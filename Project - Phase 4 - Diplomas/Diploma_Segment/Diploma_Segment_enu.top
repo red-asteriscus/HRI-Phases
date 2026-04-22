@@ -1,0 +1,27 @@
+topic: ~Diploma_Segment()
+language: enu
+
+concept:(hello) [hello hi hey]
+concept:(thx) ["thank you" thanks]
+concept:(distinction) [distinction honors "top of the class"]
+concept:(break50) \pau=50\
+concept:(break500) \pau=500\
+concept:(break1000) \pau=1000\
+
+# Dialogue Logic
+u:(e:onStart)
+    $displayImage="pics/suit_picture.png"
+    ^start(animations/Stand/Gestures/Explain_2)
+    "We now celebrate our ~break50 Computer Engineering graduates." ~break1000
+    "It is now my honor ~break50 to start with ~break50 our Valedictorian graduate, ~break500 Bob." ~break1000 ~break1000 ~break1000 ~break1000
+    ^start(animations/Stand/Gestures/Enthusiastic_5) 
+    "Excellent work, ~break50 Bob, ~break50 We are very proud." ~break1000
+    ^start(animations/Stand/Gestures/Hey_7)
+    ~break1000 ~break1000 ~break1000 ~break1000
+    "Next, we call Leana. ~break500 Graduating with Distinction."
+    ^wait(animations/Stand/Gestures/Enthusiastic_3)
+    $onStopped=1
+
+# Universal Responses
+u:(~hello) ~hello
+u:(~thx) You are welcome!
