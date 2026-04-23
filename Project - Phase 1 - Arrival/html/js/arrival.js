@@ -15,7 +15,7 @@ var responseMap = {
     "seating_noAnswer": "No problem at all!",
     "role_staffAnswer": "Staff seating is reserved in the VIP section at the front center.",
     "role_guestAnswer": "The White Section is reserved for general seating.",
-    "time_yesAnswer": "The ceremony begins in twenty minutes. Enjoy!",
+    "time_yesAnswer": "The ceremony begins at 5:00 PM. Enjoy!",
     "time_noAnswer": "Enjoy the ceremony, and congratulations to your graduate!"
 };
 
