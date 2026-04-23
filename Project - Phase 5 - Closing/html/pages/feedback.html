@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0">
+    <title>Graduation Feedback</title>
+    <link rel="stylesheet" type="text/css" href="../css/feedback.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="/libs/qimessaging/1.0/qimessaging.js"></script>
+    <script src="../js/feedback.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+
+        <div id="top-bar"></div>
+
+        <div id="container">
+
+            <p id="event-label">USEK GRADUATION CEREMONY 2026</p>
+            <div class="divider"><span>✦</span></div>
+            <p id="intro-label">Ceremony Feedback</p>
+            <h1 id="title">How was today?</h1>
+            <div class="divider"><span>✦</span></div>
+
+            <div class="star-rating" aria-label="Star rating from 1 to 5" role="group">
+                <span class="star" id="star1" data-rating="1">&#9733;</span>
+                <span class="star" id="star2" data-rating="2">&#9733;</span>
+                <span class="star" id="star3" data-rating="3">&#9733;</span>
+                <span class="star" id="star4" data-rating="4">&#9733;</span>
+                <span class="star" id="star5" data-rating="5">&#9733;</span>
+            </div>
+
+            <p id="instruction">Tap a star, then press Submit</p>
+
+            <button id="submit-btn" disabled>Submit</button>
+
+        </div>
+
+        <div id="thank-you" hidden>
+            <div class="divider"><span>✦</span></div>
+            <div class="check-icon">&#10003;</div>
+            <h2>Thank You, Graduate!</h2>
+            <p>Your feedback is very valuable.</p>
+            <div class="divider"><span>✦</span></div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

@@ -27,7 +27,10 @@ u:(~thx) ^start(animations/Stand/Gestures/Bow_1) You are very welcome! ~break500
 
 u:(e:onStart) 
     ^start(animations/Stand/Gestures/PointLeft_1)
-    $sOg=1
+    $sOg=1 #variable bada tetghayar hasab l output tabaa l html (web view)
+    #l $ ... =1, add output mnel box dialog, name it same as l ... baad l dollar
+    #tekhla2 show web view box w btousola deghre 3aleya aal onstart
+    #tfout aal script tabaa l show web view
     Are you a staff member ~break50 or a guest?
 u1:(~staff) $tabletArrivalAnswer="staffAnswer" $sOg=0 $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
 u1:(~guest) $tabletArrivalAnswer="guestAnswer" $sOg=0 $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
