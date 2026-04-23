@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="project-98b01d">
+<package uuid="project-98b01d" version="0.0.0">
  <names>
   <name lang="en_US">Untitled</name>
  </names>
@@ -16,7 +16,7 @@
    <permissions/>
   </behaviorContent>
   <dialogContent typeVersion="1.0" topicName="Arrival_Seating">
-   <topic language="en_US" path="Arrival_Seating/Arrival_Seating_enu.top"/>
+   <topic path="Arrival_Seating/Arrival_Seating_enu.top" language="en_US"/>
   </dialogContent>
  </contents>
 </package>

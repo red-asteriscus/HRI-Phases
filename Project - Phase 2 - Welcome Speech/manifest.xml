@@ -15,7 +15,7 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent topicName="welcome" typeVersion="1.0">
+  <dialogContent typeVersion="1.0" topicName="welcome">
    <topic path="welcome/welcome_enu.top" language="en_US"/>
   </dialogContent>
  </contents>

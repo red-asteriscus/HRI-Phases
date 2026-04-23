@@ -1,11 +1,35 @@
 topic: ~Time()
 language: enu
 
-# Defining extra concepts out of words or group of words
-#concept:(hello) [hello hi hey "good morning" greetings]
+# --- Defining Concepts ---
+concept:(hello) [hello hi hey "good morning" greetings]
+concept:(yes) [yes "all right" sure "why not" ok certainly "very well" yep yea definitely amen]
+concept:(no) [no nope "don't want" "no way" never "not at all"]
+concept:(repeat) [repeat]
+concept:(bye) [bye goodbye "bye bye" "tata" "see you" adios cheerio "so long" farewell "have a nice day"]
+concept:(guest) [guest visitor family friend]
+concept:(staff) [staff faculty teacher professor employee organizer]
+concept:(thx) ["thank you" thanks gracias merci]
+concept:(distinction) [distinction honors "top of the class" "great grades"]
+concept:(rating) [1 2 3 4 5 "one" "two" "three" "four" "five"]
 
-# Catching inputs and triggering outputs
-#u:(e:onStart) $onStopped=1
+# --- Defining Pauses ---
+concept:(break50) \pau=50\
+concept:(break250) \pau=250\
+concept:(break500) \pau=500\
+concept:(break1000) \pau=1000\
+concept:(break2000) \pau=2000\
+concept:(break3000) \pau=3000\
 
-# Replying to speech
-#u:(~hello) ~hello
+u:(~repeat) ^repeat
+
+u:(~thx) ^start(animations/Stand/Gestures/Bow_1) You are very welcome! ~break500
+
+u:(e:onStart) 
+    $time=1
+    ^start(animations/Stand/Gestures/PointLeft_1) ~break500 Would you like to know when the ceremony starts? ^wait(animations/Stand/Gestures/PointLeft_1)
+    u1:(~yes) The ceremony begins at five. Enjoy! $onStopped=1
+    u1:(~no) ^start(animations/Stand/Gestures/Bow_1) ~break500 Okay,Enjoy the ceremony ~break250 and congratulations to your graduate! ^wait(animations/Stand/Gestures/Bow_1) $onStopped=1
+    
+    u1:(e:yesAnswer) The ceremony begins at five. Enjoy! $onStopped=1
+    u1:(e:noAnswer) ^start(animations/Stand/Gestures/Bow_1) ~break500 Okay,Enjoy the ceremony ~break250 and congratulations to your graduate! ^wait(animations/Stand/Gestures/Bow_1) $onStopped=1

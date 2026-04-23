@@ -32,8 +32,7 @@ u:(e:onStart)
     $displayImage="pics/suit_picture.png"
     ^start(animations/Stand/Gestures/Hey_1)
     ~break250 Welcome to USEK. ~break50 I am Pepper. ~break500
-    ^start(animations/Stand/Gestures/Explain_4)
-    $showMap=1 
+    ^start(animations/Stand/Gestures/Explain_4) 
     ^wait(animations/Stand/Gestures/Explain_4)
     ^gotoReactivate(arrival)
 
