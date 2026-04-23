@@ -33,13 +33,13 @@
 
             <div id="button-container">
                 <div id="group-yes-no" class="button-group hidden">
-                    <button class="btn btn-yes" onclick="onArrivalButton('yesAnswer')">Yes, indeed!</button>
-                    <button class="btn btn-no" onclick="onArrivalButton('noAnswer')">No, thank you</button>
+                    <button class="btn btn-yes" onclick="raiseConfirmationEvent('yesAnswer')">Yes, indeed!</button>
+                    <button class="btn btn-no" onclick="raiseConfirmationEvent('noAnswer')">No, thank you</button>
                 </div>
 
                 <div id="group-role" class="button-group hidden">
-                    <button class="btn btn-staff" onclick="onArrivalButton('staffAnswer')">I am Staff</button>
-                    <button class="btn btn-guest" onclick="onArrivalButton('guestAnswer')">I am a Guest</button>
+                    <button class="btn btn-staff" onclick="raiseConfirmationEvent('staffAnswer')">I am Staff</button>
+                    <button class="btn btn-guest" onclick="raiseConfirmationEvent('guestAnswer')">I am a Guest</button>
                 </div>
             </div>
         </div>
@@ -49,6 +49,7 @@
         window.addEventListener("DOMContentLoaded", function () {
             displayPageInformation();
             updateQuestionState();
+            subscribeToTabletAnswerEvents();
         });
     </script>
 </body>

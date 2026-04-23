@@ -1,4 +1,5 @@
 var activeQuestion = "ceremony";
+var arrivalEventSubscribed = false;
 
 var questionMap = {
     "ceremony": "Are you here for the graduation ceremony?",
@@ -20,7 +21,7 @@ var responseMap = {
 
 function getUrlVars() {
     var vars = {};
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
         vars[key] = decodeURIComponent(value);
     });
     return vars;
@@ -52,7 +53,9 @@ function displaySpeech(text) {
     var speechEl = document.getElementById("pepper-speech");
     var mapEl = document.getElementById("map-display");
 
-    if (!speechEl) return;
+    if (!speechEl) {
+        return;
+    }
 
     if (!text) {
         speechEl.style.display = "none";
@@ -91,7 +94,9 @@ function updateQuestionState() {
     var groupYesNo = document.getElementById("group-yes-no");
     var groupRole = document.getElementById("group-role");
 
-    if (!groupYesNo || !groupRole) return;
+    if (!groupYesNo || !groupRole) {
+        return;
+    }
 
     groupYesNo.style.display = "none";
     groupRole.style.display = "none";
@@ -132,16 +137,10 @@ function setQuestionKey(newKey) {
     window.location.href = basePath + "?key=" + encodeURIComponent(newKey);
 }
 
-function onArrivalButton(eventName) {
+function handleArrivalAnswer(eventName) {
     var currentKey = getUrlParam("key", "ceremony");
     if (!currentKey) {
         currentKey = "ceremony";
-    }
-
-    if (typeof raiseConfirmationEvent === "function") {
-        raiseConfirmationEvent(eventName);
-    } else if (typeof raiseEvent === "function") {
-        raiseEvent(eventName, 1);
     }
 
     var responseText = responseMap[currentKey + "_" + eventName] || "Thank you!";
@@ -152,10 +151,50 @@ function onArrivalButton(eventName) {
     var groupYesNo = document.getElementById("group-yes-no");
     var groupRole = document.getElementById("group-role");
 
-    if (groupYesNo) groupYesNo.style.display = "none";
-    if (groupRole) groupRole.style.display = "none";
+    if (groupYesNo) {
+        groupYesNo.style.display = "none";
+    }
+    if (groupRole) {
+        groupRole.style.display = "none";
+    }
 
     setTimeout(function () {
         setQuestionKey(nextKey);
     }, 1800);
+}
+
+function onArrivalButton(eventName) {
+    if (typeof raiseConfirmationEvent === "function") {
+        raiseConfirmationEvent(eventName);
+    } else if (typeof raiseEvent === "function") {
+        raiseEvent(eventName, 1);
+    }
+}
+
+function subscribeToTabletAnswerEvents() {
+    if (arrivalEventSubscribed) {
+        return;
+    }
+
+    if (typeof QiSession === "undefined") {
+        return;
+    }
+
+    arrivalEventSubscribed = true;
+
+    QiSession(function (session) {
+        session.service("ALMemory").then(function (memory) {
+            memory.subscriber("tabletArrivalAnswer").then(function (subscriber) {
+                subscriber.signal.connect(function (value) {
+                    handleArrivalAnswer(String(value));
+                });
+            }, function (error) {
+                console.log("Could not subscribe to tabletArrivalAnswer:", error);
+            });
+        }, function (error) {
+            console.log("Could not access ALMemory:", error);
+        });
+    }, function () {
+        console.log("Disconnected");
+    });
 }

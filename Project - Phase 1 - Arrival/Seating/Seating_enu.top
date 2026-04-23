@@ -29,12 +29,11 @@ u:(e:onStart)
     ^start(animations/Stand/Gestures/Explain_4)
     $seatHelp=1
     Do you need help finding a seat? 
-    u1:(~yes) Got it. ^gotoReactivate(Seathelp)
-    u1:(~no) No problem. I am here if you need assistance. Enjoy the event! $onStopped=1
-    
-    u1:(e:yesAnswer) Got it. ^gotoReactivate(Seathelp)
-    u1:(e:noAnswer) No problem. I am here if you need assistance. Enjoy the event! $onStopped=1
+u1:(~yes) $tabletArrivalAnswer="yesAnswer" Got it. ^gotoReactivate(Seathelp)
+u1:(~no) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. Enjoy the event! $onStopped=1
 
+u1:(e:yesAnswer) $tabletArrivalAnswer="yesAnswer" Got it. ^gotoReactivate(Seathelp)
+u1:(e:noAnswer) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. Enjoy the event! $onStopped=1
     
 proposal: %Seathelp  $onStopped=1
     

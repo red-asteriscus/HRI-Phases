@@ -39,14 +39,12 @@ u:(~hello)
     ^start(animations/Stand/Gestures/Hey_1) ~hello ^gotoReactivate(arrival)
 
 proposal: %arrival 
-    $displayImage="pics/Graduation_Welcome.jpg"
     ^start(animations/Stand/Gestures/Explain_1) ~break1000 $Seating=1 Are you here for the Computer Engineering commencement? ^wait(animations/Stand/Gestures/Hey_1)
-    u1:(~yes) Excellent. ^gotoReactivate(Seating)
-    u1:(~no) No problem. I am here if you need assistance. $onStopped=1
+u1:(~yes) $tabletArrivalAnswer="yesAnswer" Excellent. ^gotoReactivate(Seating)
+u1:(~no) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. $onStopped=1
 
-    u1: (e:yesAnswer) Excellent. ^gotoReactivate(Seating)
-    u1: (e:noAnswer) No problem. I am here if you need assistance. $onStopped=1
-    
-    proposal: %Seating  $onStopped=1 
+u1:(e:yesAnswer) $tabletArrivalAnswer="yesAnswer" Excellent. ^gotoReactivate(Seating)
+u1:(e:noAnswer) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. $onStopped=1   
+    proposal: %Seating   $onStopped=1 
 
     
