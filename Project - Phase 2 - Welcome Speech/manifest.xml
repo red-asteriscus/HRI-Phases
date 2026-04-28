@@ -16,7 +16,7 @@
    <permissions/>
   </behaviorContent>
   <dialogContent typeVersion="1.0" topicName="welcome">
-   <topic path="welcome/welcome_enu.top" language="en_US"/>
+   <topic language="en_US" path="welcome/welcome_enu.top"/>
   </dialogContent>
  </contents>
 </package>

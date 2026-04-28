@@ -52,6 +52,16 @@ html, body {
     min-height: 60px;
 }
 
+#question-text {
+    font-family: 'Playfair Display', serif;
+}
+
+#map-display {
+    max-width: 500px;
+    border-radius: 16px;
+    margin-top: 20px;
+}
+
 /* Transitions */
 .fade-out {
     opacity: 0;

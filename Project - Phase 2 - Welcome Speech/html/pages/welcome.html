@@ -1,23 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="user-scalable=no, initial-scale=1"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0">
     <title>Welcome - Graduation 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/welcome.css" />
-    <script src="/libs/qimessaging/1.0/qimessaging.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../css/arrival.css">
+
+    <script src="/libs/qi/2/qi.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/qievents.js"></script>
     <script src="../js/welcome.js"></script>
-  </head>
-  <body>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
     <div id="wrapper">
-      <div id="container">
-        <img id="main-image" src="../pics/suit_picture.png" />
-        <h1 id="pepper-speech">Welcome to the Class of 2026</h1>
-      </div>
-    </div> 
-  </body>
+        <div id="top-bar"></div>
+
+        <div id="container">
+            <p id="event-label">USEK GRADUATION CEREMONY 2026</p>
+
+            <div class="divider"><span>✦</span></div>
+
+            <p id="intro-label">Welcome Ceremony</p>
+
+            <h1 id="question-text">Welcome to USEK Graduation Ceremony 2026</h1>
+
+            <p id="pepper-speech"></p>
+
+            <div class="divider"><span>✦</span></div>
+
+            <div id="button-container">
+                <div id="group-yes-no" class="button-group">
+                    <button class="btn btn-yes" onclick="onWelcomeButton('yesAnswer')">
+                        Yes, we are ready!
+                    </button>
+
+                    <button class="btn btn-no" onclick="onWelcomeButton('noAnswer')">
+                        Not yet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        window.addEventListener("DOMContentLoaded", function () {
+            displayPageInformation();
+            updateQuestionState();
+            subscribeToTabletAnswerEvents();
+        });
+    </script>
+</body>
 </html>

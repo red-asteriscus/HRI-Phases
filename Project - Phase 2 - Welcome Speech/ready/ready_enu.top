@@ -1,0 +1,30 @@
+topic: ~ready()
+language: enu
+
+concept:(hello) [hello hi hey "good morning" greetings]
+concept:(thx) ["thank you" thanks gracias merci]
+concept:(repeat) [repeat "what did you say"]
+concept:(yes) [yes yeah oui]
+concept:(no) [no nope non]
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break250) \pau=250\
+concept:(break500) \pau=500\
+concept:(break1000) \pau=1000\
+
+# Dialogue Logic
+u:(e:onStart)
+    ^start(animations/Stand/Gestures/Explain_11)
+    $Ready=1 
+    ^gotoReactivate(ask)
+    
+proposal: %ask
+    Are you ready to begin?
+    u1:(~yes) $tabletWelcomeAnswer="yesAnswer" alright let's begin ^gotoReactivate(Speech)
+    u1:(~no) $tabletWelcomeAnswer="noAnswer" Okay, we will wait for a bit ^gotoReactivate(Wait)
+
+    u1:(e:yesAnswer) $tabletWelcomeAnswer="yesAnswer" alright let's begin ^gotoReactivate(Speech)
+    u1:(e:noAnswer) $tabletWelcomeAnswer="noAnswer" Okay, we will wait for a bit ^gotoReactivate(Wait)
+    
+proposal: %Speech $onStopped=1
+proposal: %Wait ~break1000 ^gotoReactivate(ask)

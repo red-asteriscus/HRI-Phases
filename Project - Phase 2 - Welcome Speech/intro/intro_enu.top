@@ -1,0 +1,24 @@
+topic: ~intro()
+language: enu
+
+concept:(hello) [hello hi hey "good morning" greetings]
+concept:(thx) ["thank you" thanks gracias merci]
+concept:(repeat) [repeat "what did you say"]
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break250) \pau=250\
+concept:(break500) \pau=500\
+concept:(break1000) \pau=1000\
+
+# Dialogue Logic
+u:(e:onStart)
+    $displayImage="pics/suit_picture.png"
+    ^start(animations/Stand/Gestures/ShowFloor_1)
+    Ladies and gentlemen, ~break250 faculty, ~break250 students ~break250 and families... ~break1000
+    $welcome=1 
+    ^start(animations/Stand/Gestures/Joy_1)
+    Welcome to the Class of 2026 ~break250 Graduation Ceremony! ~break1000 
+    ^start(animations/Stand/Gestures/Me_1)
+    I am Pepper, ~break250 and I am honored to celebrate ~break50 the Class of 2026. ~break500
+    $onStopped=1
+
