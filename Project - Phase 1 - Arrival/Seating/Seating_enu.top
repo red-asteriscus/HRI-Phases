@@ -30,10 +30,11 @@ u:(e:onStart)
     $seatHelp=1
     Do you need help finding a seat? 
 u1:(~yes) $tabletArrivalAnswer="yesAnswer" Got it. ^gotoReactivate(Seathelp)
-u1:(~no) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. Enjoy the event! $onStopped=1
+u1:(~no) $tabletArrivalAnswer="noAnswer" No problem. ^gotoReactivate(Time)
 
 u1:(e:yesAnswer) $tabletArrivalAnswer="yesAnswer" Got it. ^gotoReactivate(Seathelp)
-u1:(e:noAnswer) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. Enjoy the event! $onStopped=1
+u1:(e:noAnswer) $tabletArrivalAnswer="noAnswer" No problem. ^gotoReactivate(Time)
     
-proposal: %Seathelp  $onStopped=1
+proposal: %Seathelp  $Help=1 $onStopped=1
+proposal: %Time $Time=1  $onStopped=1
     

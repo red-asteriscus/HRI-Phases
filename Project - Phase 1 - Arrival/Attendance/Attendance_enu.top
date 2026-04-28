@@ -20,6 +20,7 @@ concept:(break500) \pau=500\
 concept:(break1000) \pau=1000\
 concept:(break2000) \pau=2000\
 concept:(break3000) \pau=3000\
+concept:(break20000) \pau=20000\
 
 u:(~repeat) ^repeat
 
@@ -41,10 +42,11 @@ u:(~hello)
 proposal: %arrival 
     ^start(animations/Stand/Gestures/Explain_1) ~break1000 $Seating=1 Are you here for the Computer Engineering commencement? ^wait(animations/Stand/Gestures/Hey_1)
 u1:(~yes) $tabletArrivalAnswer="yesAnswer" Excellent. ^gotoReactivate(Seating)
-u1:(~no) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. $onStopped=1
+u1:(~no) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. ^gotoReactivate(NA) 
 
 u1:(e:yesAnswer) $tabletArrivalAnswer="yesAnswer" Excellent. ^gotoReactivate(Seating)
-u1:(e:noAnswer) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. $onStopped=1   
+u1:(e:noAnswer) $tabletArrivalAnswer="noAnswer" No problem. I am here if you need assistance. ^gotoReactivate(NA) 
     proposal: %Seating   $onStopped=1 
+    proposal: %NA  $displayImage="pics/suit_picture.png" ~break20000  ^gotoReactivate(arrival)
 
     

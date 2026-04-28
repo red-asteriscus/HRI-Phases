@@ -10,7 +10,7 @@ var questionMap = {
 
 var responseMap = {
     "ceremony_yesAnswer": "Wonderful!",
-    "ceremony_noAnswer": "No worries! Have a wonderful day.",
+    "ceremony_noAnswer": "No problem. I am here if you need assistance.",
     "seating_yesAnswer": "Of course!",
     "seating_noAnswer": "No problem at all!",
     "role_staffAnswer": "Staff seating is reserved in the VIP section at the front center.",
