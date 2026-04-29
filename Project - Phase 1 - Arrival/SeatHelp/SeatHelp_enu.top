@@ -32,9 +32,9 @@ u:(e:onStart)
     #tekhla2 show web view box w btousola deghre 3aleya aal onstart
     #tfout aal script tabaa l show web view
     Are you a staff member ~break50 or a guest?
-u1:(~staff) $tabletArrivalAnswer="staffAnswer" $sOg=0 $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
-u1:(~guest) $tabletArrivalAnswer="guestAnswer" $sOg=0 $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
+u1:(~staff) $tabletArrivalAnswer="staffAnswer" $sOg=0 $displayImage="pics/seating_map.jpg" ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
+u1:(~guest) $tabletArrivalAnswer="guestAnswer" $sOg=0 $displayImage="pics/seating_map.jpg" ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
 
-u1:(e:staffAnswer) $tabletArrivalAnswer="staffAnswer" $sOg=0 $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
-u1:(e:guestAnswer) $tabletArrivalAnswer="guestAnswer" $sOg=0 $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
+u1:(e:staffAnswer) $tabletArrivalAnswer="staffAnswer" $sOg=0 $displayImage="pics/seating_map.jpg" ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
+u1:(e:guestAnswer) $tabletArrivalAnswer="guestAnswer" $sOg=0 $displayImage="pics/seating_map.jpg" ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
 proposal: %anythingElse $onStopped=1
