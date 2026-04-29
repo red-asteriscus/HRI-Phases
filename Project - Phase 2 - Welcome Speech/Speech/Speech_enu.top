@@ -20,8 +20,9 @@ u:(e:onStart)
     ^start(animations/Stand/Gestures/Enthusiastic_4)
 
 It’s time to start the celebration. ~break250 Let’s hear it for our graduates!
+$applause=1
     ^start(animations/Stand/Emotions/Positive/Hooray_1)
-    Hooray! ~break100 Congratulations!
+    ~break500 ~break500 ~break500 ~break500 ~break100 ~break100 Congratulations!
     
     ^wait(animations/Stand/Emotions/Positive/Hooray_1)
     $onStopped=1

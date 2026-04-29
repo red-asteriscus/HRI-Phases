@@ -11,15 +11,24 @@ concept:(break500) \pau=500\
 
 # Dialogue Logic
 u:(e:onStart)
-$displayImage="pics/suit_picture.png"
+$guest1wait=1
     ^start(animations/Stand/Gestures/PointRight_1)
     "Please ~break50 join me in welcoming ~break50 our Guest Speaker,~break100 a leading expert ~break100 in Software Engineering." ~break500
     "Doctor Engineer Marcel Daccache."
+    $guest1wait=0
+    $guest1=1
+    $applause=1
     ^wait(animations/Stand/Gestures/PointRight_1)
 
 # Specific interaction with the Guest Speaker
-u:(["Thank you Pepper" "Thank you" ~thx])
+u:(~thx)
     ^start(animations/Stand/Gestures/Bow_1)
     "The pleasure is mine."
+    ^wait(animations/Stand/Gestures/Bow_1)
+    $onStopped=1
+
+    u:(e:guestThankYou)
+    ^start(animations/Stand/Gestures/Bow_1)
+    The pleasure is mine.
     ^wait(animations/Stand/Gestures/Bow_1)
     $onStopped=1

@@ -4,37 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0">
     <title>Guest Speaker Introduction</title>
+
     <link rel="stylesheet" href="../css/introducing_guest.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="/libs/qimessaging/1.0/qimessaging.js"></script>
+
+    <script src="/libs/qi/2/qi.js"></script>
+    <script src="../js/qievents.js"></script>
     <script src="../js/introducing_guest.js"></script>
 </head>
+
 <body>
     <div id="wrapper">
-
         <div id="top-bar"></div>
 
-        <div id="card">
-
+        <div id="container">
             <p id="event-label">USEK GRADUATION CEREMONY 2026</p>
+
             <div class="divider"><span>✦</span></div>
 
             <p id="intro-label">Guest Speaker</p>
 
-            <h1 id="speaker-name">Dr. Eng. Marcel Daccache</h1>
+            <div id="speaker-row">
+                <div class="speaker-side">
+                    <div id="person-outline">
+                        <div class="person-head"></div>
+                        <div class="person-body"></div>
+                    </div>
+                </div>
 
-            <p id="speaker-title">Expert in Software Engineering</p>
+                <div id="speaker-info">
+                    <h1 id="speaker-name">Loading...</h1>
+                    <p id="speaker-title">Loading...</p>
+                </div>
+
+                <div class="speaker-side"></div>
+            </div>
+
+            <p id="arrival-status">Loading...</p>
 
             <div class="divider"><span>✦</span></div>
 
-            <p id="pepper-speech"></p>
-
+            <button id="thank-you-btn" type="button" onclick="thankPepper()">
+                Thank you, Pepper
+            </button>
         </div>
-        <button id="next-btn" onclick="goToNext()">Next Segment →</button>
-        <div id="bottom-bar"></div>
 
+        <div id="confetti-area"></div>
     </div>
-
-
 </body>
 </html>

@@ -246,6 +246,7 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
+    overflow: hidden;
 }
 
 .confetti-piece {
@@ -274,6 +275,14 @@ body.phase-speech #phase-text {
 }
 
 body.phase-ready #cue-panel {
+    display: none;
+}
+
+body.phase-speech #pepper-avatar {
+    animation: pepperWave 0.8s ease-in-out infinite;
+}
+
+body.phase-speech #cue-panel {
     display: none;
 }
 
@@ -357,6 +366,6 @@ body.phase-ready #cue-panel {
 
     100% {
         opacity: 0;
-        transform: translateY(800px) rotate(260deg);
+        transform: translateY(110vh) rotate(260deg);
     }
 }

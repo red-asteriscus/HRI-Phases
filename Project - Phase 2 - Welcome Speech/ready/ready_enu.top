@@ -19,12 +19,13 @@ u:(e:onStart)
     ^gotoReactivate(ask)
     
 proposal: %ask
+~break1000 ~break1000
     Are you ready to begin?
     u1:(~yes) $tabletWelcomeAnswer="yesAnswer" alright let's begin ^gotoReactivate(Speech)
-    u1:(~no) $tabletWelcomeAnswer="noAnswer" Okay, we will wait for a bit ^gotoReactivate(Wait)
+    u1:(~no) $tabletWelcomeAnswer="noAnswer" Okay, I'm a robot ~break250 I can wait ^gotoReactivate(Wait)
 
     u1:(e:yesAnswer) $tabletWelcomeAnswer="yesAnswer" alright let's begin ^gotoReactivate(Speech)
-    u1:(e:noAnswer) $tabletWelcomeAnswer="noAnswer" Okay, we will wait for a bit ~break1000 ~break1000 ~break1000 ~break1000 ~break1000 ^gotoReactivate(Wait)
+    u1:(e:noAnswer) $tabletWelcomeAnswer="noAnswer" Okay, I'm a robot ~break250 I can wait ~break1000 ~break1000 ~break1000 ~break1000 ~break1000 ^gotoReactivate(Wait)
     
 
 

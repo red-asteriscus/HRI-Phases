@@ -2,6 +2,7 @@ var activePhase = "welcome";
 var welcomeEventSubscribed = false;
 var soundEnabled = true;
 var toastTimer = null;
+var speechConfettiTimer = null;
 
 var phaseMap = {
     "welcome": {
@@ -93,6 +94,7 @@ function displayPageInformation() {
 
     updatePhaseTrack(phase);
     updateQuestionState();
+    updateSpeechConfetti(phase);
     playSound(data.sound);
 }
 
@@ -132,32 +134,24 @@ function updateQuestionState() {
             cuePanel.style.display = "none";
         }
     }
-}
 
-function setWelcomePhase(newPhase) {
-    var basePath = window.location.href.split("?")[0];
-
-    window.location.href = basePath + "?phase=" + encodeURIComponent(newPhase);
+    if (phase === "speech") {
+        if (cuePanel) {
+            cuePanel.style.display = "none";
+        }
+    }
 }
 
 function handleWelcomeAnswer(eventName) {
     var currentPhase = getUrlParam("phase", "welcome");
 
     if (currentPhase === "ready" && eventName === "yesAnswer") {
-        playSound("sound-cheer");
         makeConfetti();
-
-        setTimeout(function () {
-            setWelcomePhase("speech");
-        }, 700);
-
         return;
     }
 
     if (currentPhase === "ready" && eventName === "noAnswer") {
-        playSound("sound-waiting");
         pulsePepper("pulse");
-
         return;
     }
 }
@@ -169,13 +163,11 @@ function raiseTabletEvent(eventName, eventValue) {
 }
 
 function onWelcomeButton(eventName) {
-    playSound("sound-button");
     raiseTabletEvent(eventName, 1);
     handleWelcomeAnswer(eventName);
 }
 
 function onCueButton(eventName, actionName) {
-    playSound("sound-button");
     raiseTabletEvent(eventName, 1);
 
     if (actionName === "wave") {
@@ -184,7 +176,6 @@ function onCueButton(eventName, actionName) {
     }
 
     if (actionName === "cheer") {
-        playSound("sound-cheer");
         makeConfetti();
         return;
     }
@@ -211,28 +202,6 @@ function subscribeToTabletAnswerEvents() {
     }, function () {
         console.log("Disconnected from QiSession");
     });
-}
-
-function playSound(id) {
-    var audio;
-    var playResult;
-
-    if (!soundEnabled) return;
-
-    audio = document.getElementById(id);
-
-    if (!audio) return;
-
-    try {
-        audio.currentTime = 0;
-        playResult = audio.play();
-
-        if (playResult && typeof playResult.catch === "function") {
-            playResult.catch(function () {});
-        }
-    } catch (err) {
-        console.log("Audio play skipped:", err);
-    }
 }
 
 function pulsePepper(className) {
@@ -274,14 +243,52 @@ function showToast(message) {
     }, 1600);
 }
 
-function makeConfetti() {
+function updateSpeechConfetti(phase) {
+    if (phase === "speech") {
+        startSpeechConfetti();
+        return;
+    }
+
+    stopSpeechConfetti();
+}
+
+function startSpeechConfetti() {
+    if (speechConfettiTimer) return;
+
+    makeConfetti(false);
+
+    speechConfettiTimer = setInterval(function () {
+        makeConfetti(false);
+    }, 650);
+}
+
+function stopSpeechConfetti() {
+    var area = document.getElementById("confetti-area");
+
+    if (speechConfettiTimer) {
+        clearInterval(speechConfettiTimer);
+        speechConfettiTimer = null;
+    }
+
+    if (area) {
+        area.innerHTML = "";
+    }
+}
+
+function makeConfetti(clearExisting) {
     var area = document.getElementById("confetti-area");
     var piece;
     var i;
 
     if (!area) return;
 
-    area.innerHTML = "";
+    if (typeof clearExisting === "undefined") {
+        clearExisting = true;
+    }
+
+    if (clearExisting) {
+        area.innerHTML = "";
+    }
 
     for (i = 0; i < 28; i++) {
         piece = document.createElement("span");
@@ -299,10 +306,21 @@ function makeConfetti() {
         piece.style.animationDelay = ((i % 6) * 0.08) + "s";
 
         area.appendChild(piece);
+        removeConfettiPieceLater(piece);
     }
 
+    if (clearExisting) {
+        setTimeout(function () {
+            area.innerHTML = "";
+        }, 2100);
+    }
+}
+
+function removeConfettiPieceLater(piece) {
     setTimeout(function () {
-        area.innerHTML = "";
+        if (piece && piece.parentNode) {
+            piece.parentNode.removeChild(piece);
+        }
     }, 2100);
 }
 

@@ -57,6 +57,12 @@
         <File name="help" src="html/pages/help.html" />
         <File name="introducing_guest" src="html/pages/introducing_guest.html" />
         <File name="welcome" src="html/pages/welcome.html" />
+        <File name="applause2" src="sounds/applause2.ogg" />
+        <File name="bonuspts" src="sounds/bonuspts.ogg" />
+        <File name="gamepositive" src="sounds/gamepositive.ogg" />
+        <File name="glitch" src="sounds/glitch.ogg" />
+        <File name="intro" src="sounds/intro.ogg" />
+        <File name="itempop" src="sounds/itempop.ogg" />
     </Resources>
     <Topics>
         <Topic name="ExampleDialog_enu" src="behavior_1/ExampleDialog/ExampleDialog_enu.top" topicName="ExampleDialog" language="en_US" />
