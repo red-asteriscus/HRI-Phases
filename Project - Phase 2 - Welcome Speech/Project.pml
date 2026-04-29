@@ -60,6 +60,12 @@
         <File name="help" src="html/pages/help.html" />
         <File name="introducing_guest" src="html/pages/introducing_guest.html" />
         <File name="welcome" src="html/pages/welcome.html" />
+        <File name="applause2" src="sounds/applause2.ogg" />
+        <File name="alex_kizenkov-cyber-punk-logo-502648" src="sounds/intro.ogg" />
+        <File name="cartoon-music-soundtrack-arcade-game-positive-selection-bling-489760" src="sounds/gamepositive.ogg" />
+        <File name="cartoon-music-soundtrack-video-game-bonus-points-512990" src="sounds/bonuspts.ogg" />
+        <File name="cartoon-music-soundtrack-video-game-collect-item-pop-amp-flutter-512992" src="sounds/itempop.ogg" />
+        <File name="freesound_community-computer-glitch-corrupted-file-96176" src="sounds/glitch.ogg" />
     </Resources>
     <Topics>
         <Topic name="welcome_enu" src="welcome/welcome_enu.top" topicName="phase2_welcome" language="en_US" />

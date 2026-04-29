@@ -24,7 +24,10 @@ proposal: %ask
     u1:(~no) $tabletWelcomeAnswer="noAnswer" Okay, we will wait for a bit ^gotoReactivate(Wait)
 
     u1:(e:yesAnswer) $tabletWelcomeAnswer="yesAnswer" alright let's begin ^gotoReactivate(Speech)
-    u1:(e:noAnswer) $tabletWelcomeAnswer="noAnswer" Okay, we will wait for a bit ^gotoReactivate(Wait)
+    u1:(e:noAnswer) $tabletWelcomeAnswer="noAnswer" Okay, we will wait for a bit ~break1000 ~break1000 ~break1000 ~break1000 ~break1000 ^gotoReactivate(Wait)
     
+
+
+        
 proposal: %Speech $onStopped=1
 proposal: %Wait ~break1000 ^gotoReactivate(ask)

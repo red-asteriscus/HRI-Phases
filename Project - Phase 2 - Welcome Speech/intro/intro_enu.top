@@ -12,6 +12,7 @@ concept:(break1000) \pau=1000\
 
 # Dialogue Logic
 u:(e:onStart)
+    ~break1000 ~break1000 ~break1000 ~break1000 ~break250
     $displayImage="pics/suit_picture.png"
     ^start(animations/Stand/Gestures/ShowFloor_1)
     Ladies and gentlemen, ~break250 faculty, ~break250 students ~break250 and families... ~break1000
@@ -21,4 +22,14 @@ u:(e:onStart)
     ^start(animations/Stand/Gestures/Me_1)
     I am Pepper, ~break250 and I am honored to celebrate ~break50 the Class of 2026. ~break500
     $onStopped=1
+    
+    u1:(e:tabletWave)
+        ^start(animations/Stand/Gestures/Hey_1)
+        Hello everyone. I am ready when you are.
+        ^gotoReactivate(ask)
+
+    u1:(e:tabletCheer)
+        ^start(animations/Stand/Emotions/Positive/Hooray_1)
+        Let's practice the cheer. Hooray!
+        ^gotoReactivate(ask)
 

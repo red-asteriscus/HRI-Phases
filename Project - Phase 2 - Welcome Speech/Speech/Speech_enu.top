@@ -12,6 +12,7 @@ concept:(break1000) \pau=1000\
 
 # Dialogue Logic
 u:(e:onStart)
+~break1000
     $Speech=1
     Graduates, ~break500 today is the payoff ~break50 for all your hard work. ~break500
     ^start(animations/Stand/Gestures/Enthusiastic_5)
@@ -24,3 +25,12 @@ It’s time to start the celebration. ~break250 Let’s hear it for our graduate
     
     ^wait(animations/Stand/Emotions/Positive/Hooray_1)
     $onStopped=1
+    u1:(e:tabletWave)
+        ^start(animations/Stand/Gestures/Hey_1)
+        Hello everyone. I am ready when you are.
+        ^gotoReactivate(ask)
+
+    u1:(e:tabletCheer)
+        ^start(animations/Stand/Emotions/Positive/Hooray_1)
+        Let's practice the cheer. Hooray!
+        ^gotoReactivate(ask)

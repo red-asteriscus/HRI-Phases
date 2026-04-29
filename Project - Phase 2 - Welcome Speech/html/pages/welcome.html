@@ -5,14 +5,12 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0">
     <title>Welcome - Graduation 2026</title>
 
-    <link rel="stylesheet" type="text/css" href="../css/arrival.css">
+    <link rel="stylesheet" type="text/css" href="../css/welcome.css">
 
     <script src="/libs/qi/2/qi.js"></script>
     <script src="../js/jquery.js"></script>
     <script src="../js/qievents.js"></script>
     <script src="../js/welcome.js"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -24,34 +22,62 @@
 
             <div class="divider"><span>✦</span></div>
 
+            <div id="phase-track">
+                <span id="step-welcome" class="phase-step">Welcome</span>
+                <span id="step-ready" class="phase-step">Ready</span>
+                <span id="step-speech" class="phase-step">Speech</span>
+            </div>
+
+            <div id="pepper-avatar" onclick="onCueButton('tabletWave', 'wave')">
+                <div class="pepper-head">
+                    <span class="eye eye-left"></span>
+                    <span class="eye eye-right"></span>
+                    <span class="mouth"></span>
+                </div>
+                <div class="pepper-body"></div>
+            </div>
+
             <p id="intro-label">Welcome Ceremony</p>
 
-            <h1 id="question-text">Welcome to USEK Graduation Ceremony 2026</h1>
+            <h1 id="question-text">Loading...</h1>
 
-            <p id="pepper-speech"></p>
+            <p id="phase-text">
+                Loading...
+            </p>
 
             <div class="divider"><span>✦</span></div>
 
             <div id="button-container">
                 <div id="group-yes-no" class="button-group">
-                    <button class="btn btn-yes" onclick="onWelcomeButton('yesAnswer')">
-                        Yes, we are ready!
+                    <button class="btn btn-yes" type="button" onclick="onWelcomeButton('yesAnswer')">
+                        Yes, we are ready
                     </button>
 
-                    <button class="btn btn-no" onclick="onWelcomeButton('noAnswer')">
+                    <button class="btn btn-no" type="button" onclick="onWelcomeButton('noAnswer')">
                         Not yet
                     </button>
                 </div>
             </div>
+
+            <div id="cue-panel">
+                <button class="btn btn-cue" type="button" onclick="onCueButton('tabletWave', 'wave')">
+                    Pepper Wave
+                </button>
+
+                <button class="btn btn-cue" type="button" onclick="onCueButton('tabletCheer', 'cheer')">
+                    Confetti
+                </button>
+            </div>
         </div>
+
+        <div id="toast">Ready</div>
+        <div id="confetti-area"></div>
     </div>
 
-    <script type="text/javascript">
-        window.addEventListener("DOMContentLoaded", function () {
-            displayPageInformation();
-            updateQuestionState();
-            subscribeToTabletAnswerEvents();
-        });
-    </script>
+    <audio id="sound-button" src="../sounds/button_tap.ogg" preload="auto"></audio>
+    <audio id="sound-welcome" src="../sounds/welcome_chime.ogg" preload="auto"></audio>
+    <audio id="sound-ready" src="../sounds/ready_prompt.ogg" preload="auto"></audio>
+    <audio id="sound-cheer" src="../sounds/cheer.ogg" preload="auto"></audio>
+    <audio id="sound-waiting" src="../sounds/waiting.ogg" preload="auto"></audio>
 </body>
 </html>
