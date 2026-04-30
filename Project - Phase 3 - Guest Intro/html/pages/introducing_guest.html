@@ -2,13 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1.0">
-    <title>Guest Speaker Introduction</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>Guest Speakers</title>
 
-    <link rel="stylesheet" href="../css/introducing_guest.css">
+    <link rel="stylesheet" type="text/css" href="../css/introducing_guest.css">
 
     <script src="/libs/qi/2/qi.js"></script>
-    <script src="../js/qievents.js"></script>
     <script src="../js/introducing_guest.js"></script>
 </head>
 
@@ -18,37 +17,79 @@
 
         <div id="container">
             <p id="event-label">USEK GRADUATION CEREMONY 2026</p>
+            <p id="section-label">GUEST SPEAKERS</p>
 
-            <div class="divider"><span>✦</span></div>
-
-            <p id="intro-label">Guest Speaker</p>
-
-            <div id="speaker-row">
-                <div class="speaker-side">
-                    <div id="person-outline">
-                        <div class="person-head"></div>
-                        <div class="person-body"></div>
-                    </div>
-                </div>
-
-                <div id="speaker-info">
-                    <h1 id="speaker-name">Loading...</h1>
-                    <p id="speaker-title">Loading...</p>
-                </div>
-
-                <div class="speaker-side"></div>
+            <div id="phase-track">
+                <span id="step-guest1_intro" class="phase-step">Guest 1 Intro</span>
+                <span id="step-guest1_speech" class="phase-step">Guest 1 Speech</span>
+                <span id="step-guest1_to_guest2" class="phase-step">Guest 2 Intro</span>
+                <span id="step-guest2_speech" class="phase-step">Guest 2 Speech</span>
+                <span id="step-closure" class="phase-step">Closure</span>
             </div>
 
-            <p id="arrival-status">Loading...</p>
+            <div id="stage-card">
+                <div id="status-pill">
+                    <span id="status-dot"></span>
+                    <span id="intro-label">Loading...</span>
+                </div>
 
-            <div class="divider"><span>✦</span></div>
+                <table id="visual-table" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="visual-cell">
+                            <div id="pepper-visual" class="visual-box">
+                                <div class="pepper-head">
+                                    <span class="eye eye-left"></span>
+                                    <span class="eye eye-right"></span>
+                                    <span class="mouth"></span>
+                                </div>
+                                <div class="pepper-body"></div>
+                                <p>Pepper</p>
+                            </div>
+                        </td>
 
-            <button id="thank-you-btn" type="button" onclick="thankPepper()">
-                Thank you, Pepper
-            </button>
+                        <td class="visual-cell visual-center">
+                            <div id="center-badge">
+                                <div id="speaker-badge">1</div>
+                                <div id="microphone">
+                                    <div class="mic-head"></div>
+                                    <div class="mic-line"></div>
+                                    <div class="mic-base"></div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="visual-cell">
+                            <div id="guest-visual" class="visual-box">
+                                <div id="guest-icon-frame">
+                                    <div id="guest-icon" class="guest-icon male-icon">
+                                        <div class="icon-hair"></div>
+                                        <div class="icon-head"></div>
+                                        <div class="icon-neck"></div>
+                                        <div class="icon-body"></div>
+                                        <div class="icon-accent"></div>
+                                    </div>
+                                </div>
+                                <p id="guest-label">Guest Speaker</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div id="speaker-panel">
+                    <p id="phase-text">Loading...</p>
+                    <h1 id="speaker-name">Loading...</h1>
+                    <p id="speaker-title">Loading...</p>
+                    <p id="helper-text"></p>
+                </div>
+
+                <button id="main-button" class="btn" type="button" onclick="onMainButton(); return false;">
+                    Loading...
+                </button>
+            </div>
         </div>
 
         <div id="confetti-area"></div>
+        <div id="fireworks-area"></div>
     </div>
 </body>
 </html>

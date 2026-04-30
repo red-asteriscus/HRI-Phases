@@ -1,0 +1,16 @@
+topic: ~guest1wait()
+language: enu
+
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break500) \pau=500\
+concept:(break5000) \pau=5000\
+
+u:(e:onStart)
+    $speech=1
+    ^start(animations/Stand/Gestures/Yes_1)
+    ~break500
+    ^start(animations/Stand/Gestures/Thinking_1)
+
+u:(e:guest1Finished)
+    $onStopped=1

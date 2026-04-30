@@ -6,7 +6,11 @@
     </BehaviorDescriptions>
     <Dialogs>
         <Dialog name="ExampleDialog" src="behavior_1/ExampleDialog/ExampleDialog.dlg" />
-        <Dialog name="Introducing_Guest" src="Introducing_Guest/Introducing_Guest.dlg" />
+        <Dialog name="guest1intro" src="guest1intro/guest1intro.dlg" />
+        <Dialog name="guest1wait" src="guest1wait/guest1wait.dlg" />
+        <Dialog name="1guest2" src="1guest2/1guest2.dlg" />
+        <Dialog name="guest2wait" src="guest2wait/guest2wait.dlg" />
+        <Dialog name="finished" src="finished/finished.dlg" />
     </Dialogs>
     <Resources>
         <File name="suit picture" src="html/pics/suit_picture.png" />
@@ -66,7 +70,11 @@
     </Resources>
     <Topics>
         <Topic name="ExampleDialog_enu" src="behavior_1/ExampleDialog/ExampleDialog_enu.top" topicName="ExampleDialog" language="en_US" />
-        <Topic name="Introducing_Guest_enu" src="Introducing_Guest/Introducing_Guest_enu.top" topicName="Introducing_Guest" language="en_US" />
+        <Topic name="guest1intro_enu" src="guest1intro/guest1intro_enu.top" topicName="guest1intro" language="en_US" />
+        <Topic name="guest1wait_enu" src="guest1wait/guest1wait_enu.top" topicName="guest1wait" language="en_US" />
+        <Topic name="1guest2_enu" src="1guest2/1guest2_enu.top" topicName="1guest2" language="en_US" />
+        <Topic name="guest2wait_enu" src="guest2wait/guest2wait_enu.top" topicName="guest2wait" language="en_US" />
+        <Topic name="finished_enu" src="finished/finished_enu.top" topicName="finished" language="en_US" />
     </Topics>
     <IgnoredPaths />
     <Translations auto-fill="en_US">

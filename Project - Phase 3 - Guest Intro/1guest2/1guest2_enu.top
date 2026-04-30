@@ -1,0 +1,31 @@
+topic: ~1guest2()
+language: enu
+
+concept:(thx) ["thank you" thanks gracias merci]
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break500) \pau=500\
+
+u:(e:onStart)
+    ^start(animations/Stand/Gestures/Bow_1)
+    "Thank you, Doctor Engineer Marcel Daccache, for your valuable words." ~break500
+    ^wait(animations/Stand/Gestures/Bow_1)
+
+    ^start(animations/Stand/Gestures/PointRight_1)
+    "And now, ~break100 please join me in welcoming ~break100 our second guest speaker." ~break500
+    "Lea Rizk."
+    $change=1
+    $applause=1
+    ^wait(animations/Stand/Gestures/PointRight_1)
+
+u:(e:guest2ThankYou)
+    ^start(animations/Stand/Gestures/Bow_1)
+    "You are very welcome."
+    ^wait(animations/Stand/Gestures/Bow_1)
+    $onStopped=1
+
+u:(~thx)
+    ^start(animations/Stand/Gestures/Bow_1)
+    "You are very welcome."
+    ^wait(animations/Stand/Gestures/Bow_1)
+    $onStopped=1

@@ -1,0 +1,20 @@
+topic: ~finished()
+language: enu
+
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break500) \pau=500\
+
+u:(e:onStart)
+$closure=1
+    ^start(animations/Stand/Gestures/Bow_1)
+    "Thank you for your valuable words." ~break500 ~break500 ~break500
+    $applause=1
+    "A warm thank you to both of our guest speakers ~break100 for being part of this special ceremony." ~break500
+    ^wait(animations/Stand/Gestures/Bow_1)
+    
+    ^start(animations/Stand/Gestures/ShowSky_1)
+    "Ladies and gentlemen, ~break100 please give our guest speakers a warm round of applause."
+    ^wait(animations/Stand/Gestures/ShowSky_1)
+
+    $onStopped=1
