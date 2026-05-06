@@ -1,0 +1,27 @@
+topic: ~speech()
+language: enu
+
+concept:(hello) [hello hi hey "good morning" greetings]
+concept:(thx) ["thank you" thanks gracias merci]
+concept:(repeat) [repeat "what did you say"]
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break250) \pau=250\
+concept:(break500) \pau=500\
+concept:(break1000) \pau=1000\
+
+u:(e:onStart)
+    ~break1000
+    $web=1
+    ^start(animations/Stand/Gestures/Enthusiastic_5)
+    "Thank you for being with us today." ~break500
+    "Class of 2026, ~break250 you made this ceremony unforgettable." ~break1000
+    ^start(animations/Stand/Gestures/Enthusiastic_4)
+    "We are proud of you, ~break250 and we wish you success in every next step." ~break1000
+    $applause=1
+    ^start(animations/Stand/Emotions/Positive/Hooray_1)
+    "One last round of applause for our graduates!" ~break500 ~break500
+    "Congratulations!"
+    ^wait(animations/Stand/Emotions/Positive/Hooray_1)
+    $onStopped=1
+

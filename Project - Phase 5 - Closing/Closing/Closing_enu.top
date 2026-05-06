@@ -1,25 +1,26 @@
 topic: ~Closing()
 language: enu
 
-concept:(bye) [bye goodbye "see you" farewell]
-concept:(thx) ["thank you" thanks]
+concept:(hello) [hello hi hey "good morning" greetings]
+concept:(thx) ["thank you" thanks gracias merci]
+concept:(repeat) [repeat "what did you say"]
 concept:(break50) \pau=50\
+concept:(break100) \pau=100\
 concept:(break200) \pau=200\
+concept:(break250) \pau=250\
+concept:(break500) \pau=500\
 concept:(break1000) \pau=1000\
 
-# Dialogue Logic
 u:(e:onStart)
-    $displayImage="pics/suit_picture.png"
-^start(animations/Stand/Gestures/Explain_2)
+    $web=1
+    ~break1000 ~break500
+    ^start(animations/Stand/Gestures/ShowFloor_1)
+    "Ladies and gentlemen, ~break250 faculty, ~break250 students ~break250 and families..." ~break1000
+    
+    ^start(animations/Stand/Gestures/Explain_2)
     "Before you head out, ~break200 we would love to hear about your experience today." ~break500
     ^start(animations/Stand/Gestures/You_1)
-    "Please take a moment to fill out ~break50 our graduation survey." ~break500
+    "Please take a moment to fill out ~break50 our graduation survey ~break50 ." ~break500
     ^start(animations/Stand/Gestures/Explain_8)
-    "I will be waiting for you ~break50 at the exit ~break200 to personally collect your feedback!" ~break500
-    ^start(animations/Stand/Gestures/BowShort_1)
-    "Thank you, ~break100 and once again, ~break200 congratulations!"
+    "Your feedback helps us ~break50 make future ceremonies even better." ~break500
     $onStopped=1
-
-# Universal Responses
-u:(~bye) ^start(animations/Stand/Gestures/BowShort_1) Goodbye! Enjoy the celebrations!
-u:(~thx) My pleasure!

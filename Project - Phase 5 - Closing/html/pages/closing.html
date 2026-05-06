@@ -1,24 +1,111 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=1280, user-scalable=no, initial-scale=1"
-    />
-    <title>Closing Ceremony</title>
-    <link rel="stylesheet" href="../css/closing.css" />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0">
+    <title>Closing - Graduation 2026</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/closing.css">
+
+    <script src="/libs/qi/2/qi.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/qievents.js"></script>
+    <script src="../js/closing.js"></script>
+</head>
+
+<body>
     <div id="wrapper">
-      <img
-        id="main-image"
-        src=""
-        style="display: none; width: 100%; height: 100%; object-fit: contain"
-      />
+        <div class="bg-glow bg-glow-left"></div>
+        <div class="bg-glow bg-glow-right"></div>
+
+        <div id="container">
+            <div id="ceremony-shell">
+                <p id="event-label">USEK GRADUATION CEREMONY 2026</p>
+
+                <div id="hero-area">
+                    <div id="celebration-scene">
+                        <span class="sparkle sparkle-1">✦</span>
+                        <span class="sparkle sparkle-2">✦</span>
+                        <span class="sparkle sparkle-3">✦</span>
+                        <span class="sparkle sparkle-4">✦</span>
+                        <span class="sparkle sparkle-5">✦</span>
+                        <span class="sparkle sparkle-6">✦</span>
+
+                        <div class="graduate grad-1">
+                            <div class="grad-cap"></div>
+                            <div class="grad-head"></div>
+                            <div class="grad-body"></div>
+                        </div>
+
+                        <div class="graduate grad-2">
+                            <div class="grad-cap"></div>
+                            <div class="grad-head"></div>
+                            <div class="grad-body"></div>
+                        </div>
+
+                        <div class="graduate grad-3">
+                            <div class="grad-cap"></div>
+                            <div class="grad-head"></div>
+                            <div class="grad-body"></div>
+                        </div>
+
+                        <div id="pepper-orbit">
+                            <div id="pepper-avatar">
+                                <div class="pepper-head">
+                                    <span class="eye eye-left"></span>
+                                    <span class="eye eye-right"></span>
+                                    <span class="mouth"></span>
+                                </div>
+                                <div class="pepper-body"></div>
+                            </div>
+                        </div>
+
+                        <div class="graduate grad-4">
+                            <div class="grad-cap"></div>
+                            <div class="grad-head"></div>
+                            <div class="grad-body"></div>
+                        </div>
+
+                        <div class="graduate grad-5">
+                            <div class="grad-cap"></div>
+                            <div class="grad-head"></div>
+                            <div class="grad-body"></div>
+                        </div>
+
+                        <div class="graduate grad-6">
+                            <div class="grad-cap"></div>
+                            <div class="grad-head"></div>
+                            <div class="grad-body"></div>
+                        </div>
+                    </div>
+
+                    <p id="intro-label">Closing Ceremony</p>
+                    <h1 id="question-text">Loading...</h1>
+                    <p id="phase-text">Loading...</p>
+                </div>
+
+                <div id="button-container">
+                    <div id="group-yes-no" class="button-group">
+                        <button class="btn btn-yes" type="button" onclick="onClosingButton('yesAnswer')">
+                            Yes, start survey
+                        </button>
+
+                        <button class="btn btn-no" type="button" onclick="onClosingButton('noAnswer')">
+                            Not yet
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast">Ready</div>
+        <div id="confetti-area"></div>
     </div>
 
-    <script src="/libs/qimessaging/1.0/qimessaging.js"></script>
-    <script src="../js/closing.js"></script>
-  </body>
+    <audio id="sound-button" src="../sounds/itempop.ogg" preload="auto"></audio>
+    <audio id="sound-closing" src="../sounds/intro.ogg" preload="auto"></audio>
+    <audio id="sound-feedback" src="../sounds/gamepositive.ogg" preload="auto"></audio>
+    <audio id="sound-final" src="../sounds/applause2.ogg" preload="auto"></audio>
+    <audio id="sound-waiting" src="../sounds/glitch.ogg" preload="auto"></audio>
+</body>
 </html>
