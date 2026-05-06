@@ -1,0 +1,10 @@
+topic: ~congrats()
+language: enu
+
+concept:(break500) \pau=500\
+concept:(break1000) \pau=1000\
+
+u:(e:onStart)
+    ^start(animations/Stand/Gestures/Joy_1)
+    $end=1
+    $congrats=1

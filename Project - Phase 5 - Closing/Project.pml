@@ -9,6 +9,7 @@
         <Dialog name="Closing" src="Closing/Closing.dlg" />
         <Dialog name="speech" src="speech/speech.dlg" />
         <Dialog name="feedback" src="feedback/feedback.dlg" />
+        <Dialog name="congrats" src="congrats/congrats.dlg" />
     </Dialogs>
     <Resources>
         <File name="suit picture" src="html/pics/suit_picture.png" />
@@ -65,12 +66,14 @@
         <File name="glitch" src="sounds/glitch.ogg" />
         <File name="intro" src="sounds/intro.ogg" />
         <File name="itempop" src="sounds/itempop.ogg" />
+        <File name="Congratulations" src="sounds/Congratulations.ogg" />
     </Resources>
     <Topics>
         <Topic name="ExampleDialog_enu" src="behavior_1/ExampleDialog/ExampleDialog_enu.top" topicName="ExampleDialog" language="en_US" />
         <Topic name="Closing_enu" src="Closing/Closing_enu.top" topicName="Closing" language="en_US" />
         <Topic name="speech_enu" src="speech/speech_enu.top" topicName="speech" language="en_US" />
         <Topic name="feedback_enu" src="feedback/feedback_enu.top" topicName="feedback" language="en_US" />
+        <Topic name="congrats_enu" src="congrats/congrats_enu.top" topicName="congrats" language="en_US" />
     </Topics>
     <IgnoredPaths />
     <Translations auto-fill="en_US">

@@ -19,7 +19,7 @@ u:(e:onStart)
 
 proposal: %ask
     ~break1000
-    Are you ready to complete the graduation survey?
+    Are you ready  ~break50 to meet me at the exit ~break100 to complete the graduation survey?
     u1:(~yes) $tabletClosingAnswer="yesAnswer" Great. Thank you for sharing your feedback. ^gotoReactivate(Final)
     u1:(~no) $tabletClosingAnswer="noAnswer" No problem, I can wait. Take your time. ~break1000 ~break1000 ^gotoReactivate(Wait)
 
@@ -27,8 +27,6 @@ proposal: %ask
     u1:(e:noAnswer) $tabletClosingAnswer="noAnswer" No problem, I can wait. Take your time. ~break1000 ~break1000 ^gotoReactivate(Wait)
 
 proposal: %Final
-    $end=1
-    ~break1000
     $onStopped=1
 
 proposal: %Wait

@@ -2,6 +2,7 @@ var activePhase = "closing";
 var closingEventSubscribed = false;
 var toastTimer = null;
 var finalConfettiTimer = null;
+var hatFallTimer = null;
 
 var phaseMap = {
     "final": {
@@ -26,7 +27,16 @@ var phaseMap = {
         text: "",
         showButtons: true,
         confetti: false
-    }
+    },
+
+    "hats": {
+    title: "Congrats!",
+    label: "Graduation Moment",
+    text: "",
+    showButtons: false,
+    confetti: false,
+    hats: true
+}
 };
 
 function getUrlVars() {
@@ -199,10 +209,15 @@ function showToast(message) {
 function updateConfettiState(data) {
     if (data.confetti) {
         startFinalConfetti();
-        return;
+    } else {
+        stopFinalConfetti();
     }
 
-    stopFinalConfetti();
+    if (data.hats) {
+        startHatFall();
+    } else {
+        stopHatFall();
+    }
 }
 
 function startFinalConfetti() {
@@ -275,6 +290,95 @@ function removeConfettiPieceLater(piece) {
             piece.parentNode.removeChild(piece);
         }
     }, 2200);
+}
+
+function startHatFall() {
+    if (hatFallTimer) return;
+
+    makeGraduationHats(false);
+
+    hatFallTimer = setInterval(function () {
+        makeGraduationHats(false);
+    }, 850);
+}
+
+function stopHatFall() {
+    var area = document.getElementById("hat-fall-area");
+
+    if (hatFallTimer) {
+        clearInterval(hatFallTimer);
+        hatFallTimer = null;
+    }
+
+    if (area) {
+        area.innerHTML = "";
+    }
+}
+
+function makeGraduationHats(clearExisting) {
+    var area = document.getElementById("hat-fall-area");
+    var hat;
+    var top;
+    var band;
+    var tassel;
+    var i;
+
+    if (!area) return;
+
+    if (typeof clearExisting === "undefined") {
+        clearExisting = true;
+    }
+
+    if (clearExisting) {
+        area.innerHTML = "";
+    }
+
+    for (i = 0; i < 14; i++) {
+        hat = document.createElement("span");
+        hat.className = "falling-hat";
+
+        if (i % 2 === 1) {
+            hat.className += " hat-small";
+        }
+
+        if (i % 3 === 2) {
+            hat.className += " hat-gold";
+        }
+
+        top = document.createElement("span");
+        top.className = "hat-top";
+
+        band = document.createElement("span");
+        band.className = "hat-band";
+
+        tassel = document.createElement("span");
+        tassel.className = "hat-tassel";
+
+        hat.appendChild(top);
+        hat.appendChild(band);
+        hat.appendChild(tassel);
+
+        hat.style.left = ((i * 83 + 35) % 1120) + "px";
+        hat.style.animationDelay = ((i % 7) * 0.13) + "s";
+        hat.style.animationDuration = (3.2 + (i % 4) * 0.35) + "s";
+
+        area.appendChild(hat);
+        removeHatLater(hat);
+    }
+
+    if (clearExisting) {
+        setTimeout(function () {
+            area.innerHTML = "";
+        }, 4600);
+    }
+}
+
+function removeHatLater(hat) {
+    setTimeout(function () {
+        if (hat && hat.parentNode) {
+            hat.parentNode.removeChild(hat);
+        }
+    }, 5000);
 }
 
 window.addEventListener("DOMContentLoaded", function () {
