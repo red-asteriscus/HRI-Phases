@@ -6,7 +6,6 @@
     </BehaviorDescriptions>
     <Dialogs>
         <Dialog name="ExampleDialog" src="behavior_1/ExampleDialog/ExampleDialog.dlg" />
-        <Dialog name="Arrival_Seating" src="Arrival_Seating/Arrival_Seating.dlg" />
         <Dialog name="Seating" src="Seating/Seating.dlg" />
         <Dialog name="Attendance" src="Attendance/Attendance.dlg" />
         <Dialog name="SeatHelp" src="SeatHelp/SeatHelp.dlg" />
@@ -44,27 +43,17 @@
         <File name="getinput" src="html/pages/getinput.html" />
         <File name="help" src="html/pages/help.html" />
         <File name="arrival" src="html/css/arrival.css" />
-        <File name="closing" src="html/css/closing.css" />
-        <File name="diploma_segment" src="html/css/diploma_segment.css" />
-        <File name="feedback" src="html/css/feedback.css" />
-        <File name="introducing_guest" src="html/css/introducing_guest.css" />
-        <File name="welcome" src="html/css/welcome.css" />
         <File name="arrival" src="html/js/arrival.js" />
-        <File name="closing" src="html/js/closing.js" />
-        <File name="diploma_segment" src="html/js/diploma_segment.js" />
-        <File name="feedback" src="html/js/feedback.js" />
-        <File name="introducing_guest" src="html/js/introducing_guest.js" />
-        <File name="welcome" src="html/js/welcome.js" />
         <File name="arrival" src="html/pages/arrival.html" />
         <File name="closing" src="html/pages/closing.html" />
         <File name="diploma_segment" src="html/pages/diploma_segment.html" />
         <File name="feedback" src="html/pages/feedback.html" />
         <File name="introducing_guest" src="html/pages/introducing_guest.html" />
         <File name="welcome" src="html/pages/welcome.html" />
+        <File name="seating_map" src="html/pics/seating_map.jpg" />
     </Resources>
     <Topics>
         <Topic name="ExampleDialog_enu" src="behavior_1/ExampleDialog/ExampleDialog_enu.top" topicName="ExampleDialog" language="en_US" />
-        <Topic name="Arrival_Seating_enu" src="Arrival_Seating/Arrival_Seating_enu.top" topicName="Arrival_Seating" language="en_US" />
         <Topic name="Seating_enu" src="Seating/Seating_enu.top" topicName="Seating" language="en_US" />
         <Topic name="Attendance_enu" src="Attendance/Attendance_enu.top" topicName="Attendance" language="en_US" />
         <Topic name="SeatHelp_enu" src="SeatHelp/SeatHelp_enu.top" topicName="SeatHelp" language="en_US" />

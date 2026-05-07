@@ -34,4 +34,4 @@ u1:(~no) $tabletArrivalAnswer="noAnswer" ^start(animations/Stand/Gestures/Bow_1)
 u1:(e:yesAnswer) $tabletArrivalAnswer="yesAnswer" The ceremony begins at five. Enjoy! ^gotoReactivate(Start)
 u1:(e:noAnswer) $tabletArrivalAnswer="noAnswer" ^start(animations/Stand/Gestures/Bow_1) ~break500 Okay,Enjoy the ceremony ~break250 and congratulations to your graduate! ^wait(animations/Stand/Gestures/Bow_1) ^gotoReactivate(Start)
 
-proposal: %Start $Start=1  $onStopped=1
+proposal: %Start $onStopped=1
