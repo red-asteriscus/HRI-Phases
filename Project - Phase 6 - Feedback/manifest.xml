@@ -15,8 +15,5 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent topicName="Feedback_Survey" typeVersion="1.0">
-   <topic path="Feedback_Survey/Feedback_Survey_enu.top" language="en_US"/>
-  </dialogContent>
  </contents>
 </package>

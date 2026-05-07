@@ -1,31 +1,345 @@
-topic: ~Feedback_Survey()
+topic: ~feedback_survey()
 language: enu
 
-# Concepts
-concept:(rating) [1 2 3 4 5 "one" "two" "three" "four" "five"]
+concept:(rating_one) [one "one star" "1" "1 star"]
+concept:(rating_two) [two "two stars" "2" "2 stars"]
+concept:(rating_three) [three "three stars" "3" "3 stars"]
+concept:(rating_four) [four "four stars" "4" "4 stars"]
+concept:(rating_five) [five "five stars" "5" "5 stars"]
+
+concept:(yes_answer) [yes yeah yep sure "of course"]
+concept:(no_answer) [no nope "not really"]
+
+concept:(break50) \pau=50\
 concept:(break100) \pau=100\
 concept:(break500) \pau=500\
 
-# 1. Triggered when the box starts
 u:(e:onStart)
-    # Note: We removed $onShowWebview here because your Python script 
-    # is already doing it successfully!
-    ^start(animations/Stand/Gestures/Explain_3)
-    "How would you rate from 1 to 5, ~break100 the organization and timing ~break100 of today’s ceremony? ~break500 Your feedback helps the university improve."
+    $web=1
+    $surveyStep=overall
+    ^start(animations/Stand/Gestures/Explain_2)
+    "Before we close, I would like to ask for your feedback about the graduation ceremony." ~break500
+    "You can answer on the tablet, or by voice." ~break500
+    "Please rate each question from one to five stars." ~break500
+    "Question one. How would you rate the graduation ceremony overall?" ~break500
+    ^wait(animations/Stand/Gestures/Explain_2)
 
-# 2. Handle voice input
-u:(~rating)
-    $Feedback/VoiceInput=$1 
-    ^start(animations/Stand/Gestures/Nod_1)
-    "I have marked $1 stars for you. ~break200 Please tap submit on my tablet to save your response."
 
-# 3. Handle tablet touch input
-u:(e:Feedback/TouchInput)
-    ^start(animations/Stand/Gestures/Joy_1)
-    "Thank you for the $Feedback/TouchInput star rating! ~break500 Your response has been saved. Have a wonderful day!"
+u:($surveyStep==overall ~rating_one)
+    $feedbackSurveyAnswer="overall_1"
+    "I am sorry the ceremony did not feel good overall. Your honest rating helps us understand what needs to improve."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+u:($surveyStep==overall ~rating_two)
+    $feedbackSurveyAnswer="overall_2"
+    "I understand. It sounds like the ceremony could have been better. Your feedback will help us improve."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+u:($surveyStep==overall ~rating_three)
+    $feedbackSurveyAnswer="overall_3"
+    "I understand. A middle rating tells us there were good parts, but also room to improve."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+u:($surveyStep==overall ~rating_four)
+    $feedbackSurveyAnswer="overall_4"
+    "That is good to hear. I am glad the ceremony was mostly positive for you."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+u:($surveyStep==overall ~rating_five)
+    $feedbackSurveyAnswer="overall_5"
+    "Wonderful. I am very happy you enjoyed the ceremony."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+u:(e:surveyOverall1)
+    $feedbackSurveyAnswer="overall_1"
+    "I am sorry the ceremony did not feel good overall. Your honest rating helps us understand what needs to improve."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+u:(e:surveyOverall2)
+    $feedbackSurveyAnswer="overall_2"
+    "I understand. It sounds like the ceremony could have been better. Your feedback will help us improve."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+u:(e:surveyOverall3)
+    $feedbackSurveyAnswer="overall_3"
+    "I understand. A middle rating tells us there were good parts, but also room to improve."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+u:(e:surveyOverall4)
+    $feedbackSurveyAnswer="overall_4"
+    "That is good to hear. I am glad the ceremony was mostly positive for you."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+u:(e:surveyOverall5)
+    $feedbackSurveyAnswer="overall_5"
+    "Wonderful. I am very happy you enjoyed the ceremony."
+    $feedbackSurveyAdvance="organization"
+    $surveyStep=organization
+    "Question two. How would you rate the organization of the ceremony?"
+
+
+u:($surveyStep==organization ~rating_one)
+    $feedbackSurveyAnswer="organization_1"
+    "I am sorry the organization did not meet your expectations. We will take that seriously."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+u:($surveyStep==organization ~rating_two)
+    $feedbackSurveyAnswer="organization_2"
+    "I understand. The organization can be improved, and your rating helps us see that."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+u:($surveyStep==organization ~rating_three)
+    $feedbackSurveyAnswer="organization_3"
+    "Good to know. It sounds like the organization was acceptable, with some room to improve."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+u:($surveyStep==organization ~rating_four)
+    $feedbackSurveyAnswer="organization_4"
+    "That is encouraging. I am glad the organization worked well for you."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+u:($surveyStep==organization ~rating_five)
+    $feedbackSurveyAnswer="organization_5"
+    "Excellent. I am glad the ceremony felt well organized."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+u:(e:surveyOrganization1)
+    $feedbackSurveyAnswer="organization_1"
+    "I am sorry the organization did not meet your expectations. We will take that seriously."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+u:(e:surveyOrganization2)
+    $feedbackSurveyAnswer="organization_2"
+    "I understand. The organization can be improved, and your rating helps us see that."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+u:(e:surveyOrganization3)
+    $feedbackSurveyAnswer="organization_3"
+    "Good to know. It sounds like the organization was acceptable, with some room to improve."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+u:(e:surveyOrganization4)
+    $feedbackSurveyAnswer="organization_4"
+    "That is encouraging. I am glad the organization worked well for you."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+u:(e:surveyOrganization5)
+    $feedbackSurveyAnswer="organization_5"
+    "Excellent. I am glad the ceremony felt well organized."
+    $feedbackSurveyAdvance="pace"
+    $surveyStep=pace
+    "Question three. How would you rate the pace of the ceremony?"
+
+
+u:($surveyStep==pace ~rating_one)
+    $feedbackSurveyAnswer="pace_1"
+    "I am sorry the pace felt uncomfortable. That is useful feedback for future ceremonies."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+u:($surveyStep==pace ~rating_two)
+    $feedbackSurveyAnswer="pace_2"
+    "I understand. The pace may need adjustment, and your opinion helps."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+u:($surveyStep==pace ~rating_three)
+    $feedbackSurveyAnswer="pace_3"
+    "Good to know. It sounds like the pace was okay, but not perfect."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+u:($surveyStep==pace ~rating_four)
+    $feedbackSurveyAnswer="pace_4"
+    "That is nice to hear. I am glad the pace felt mostly right."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+u:($surveyStep==pace ~rating_five)
+    $feedbackSurveyAnswer="pace_5"
+    "Great. I am glad the ceremony pace felt smooth."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+u:(e:surveyPace1)
+    $feedbackSurveyAnswer="pace_1"
+    "I am sorry the pace felt uncomfortable. That is useful feedback for future ceremonies."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+u:(e:surveyPace2)
+    $feedbackSurveyAnswer="pace_2"
+    "I understand. The pace may need adjustment, and your opinion helps."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+u:(e:surveyPace3)
+    $feedbackSurveyAnswer="pace_3"
+    "Good to know. It sounds like the pace was okay, but not perfect."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+u:(e:surveyPace4)
+    $feedbackSurveyAnswer="pace_4"
+    "That is nice to hear. I am glad the pace felt mostly right."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+u:(e:surveyPace5)
+    $feedbackSurveyAnswer="pace_5"
+    "Great. I am glad the ceremony pace felt smooth."
+    $feedbackSurveyAdvance="pepper"
+    $surveyStep=pepper
+    "Question four. How would you rate my participation in the ceremony?"
+
+
+u:($surveyStep==pepper ~rating_one)
+    $feedbackSurveyAnswer="pepper_1"
+    "I am sorry my participation did not feel helpful. I will learn from this feedback."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+u:($surveyStep==pepper ~rating_two)
+    $feedbackSurveyAnswer="pepper_2"
+    "I understand. I can do better next time, and your rating helps me improve."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+u:($surveyStep==pepper ~rating_three)
+    $feedbackSurveyAnswer="pepper_3"
+    "Good to know. I am happy I could be part of it, and I will keep improving."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+u:($surveyStep==pepper ~rating_four)
+    $feedbackSurveyAnswer="pepper_4"
+    "That makes me happy. I am glad my participation was useful."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+u:($surveyStep==pepper ~rating_five)
+    $feedbackSurveyAnswer="pepper_5"
+    "Wonderful. I am very happy that you enjoyed my participation."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+u:(e:surveyPepper1)
+    $feedbackSurveyAnswer="pepper_1"
+    "I am sorry my participation did not feel helpful. I will learn from this feedback."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+u:(e:surveyPepper2)
+    $feedbackSurveyAnswer="pepper_2"
+    "I understand. I can do better next time, and your rating helps me improve."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+u:(e:surveyPepper3)
+    $feedbackSurveyAnswer="pepper_3"
+    "Good to know. I am happy I could be part of it, and I will keep improving."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+u:(e:surveyPepper4)
+    $feedbackSurveyAnswer="pepper_4"
+    "That makes me happy. I am glad my participation was useful."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+u:(e:surveyPepper5)
+    $feedbackSurveyAnswer="pepper_5"
+    "Wonderful. I am very happy that you enjoyed my participation."
+    $feedbackSurveyAdvance="recommend"
+    $surveyStep=recommend
+    "Final question. Would you recommend using Pepper again in future ceremonies? Please answer yes or no."
+
+
+u:($surveyStep==recommend ~yes_answer)
+    $feedbackSurveyAnswer="recommend_yes"
+    "That makes me happy. I am glad you would welcome Pepper again."
+    $feedbackSurveyAdvance="complete"
+    $surveyStep=done
+    "I am submitting your feedback now."
+
+u:($surveyStep==recommend ~no_answer)
+    $feedbackSurveyAnswer="recommend_no"
+    "I understand. Your honesty helps us decide how Pepper can improve for future ceremonies."
+    $feedbackSurveyAdvance="complete"
+    $surveyStep=done
+    "I am submitting your feedback now."
+
+u:(e:surveyRecommendYes)
+    $feedbackSurveyAnswer="recommend_yes"
+    "That makes me happy. I am glad you would welcome Pepper again."
+    $feedbackSurveyAdvance="complete"
+    $surveyStep=done
+    "I am submitting your feedback now."
+
+u:(e:surveyRecommendNo)
+    $feedbackSurveyAnswer="recommend_no"
+    "I understand. Your honesty helps us decide how Pepper can improve for future ceremonies."
+    $feedbackSurveyAdvance="complete"
+    $surveyStep=done
+    "I am submitting your feedback now."
+
+
+u:(e:FeedbackSurveyCompleted)
+    ^start(animations/Stand/Gestures/Bow_1)
+    "Your feedback has been submitted. Your opinion will help us improve future ceremonies." ~break500
+    ^wait(animations/Stand/Gestures/Bow_1)
     $onStopped=1
-
-# 4. Error Handling
-u:(e:Dialog/NotUnderstood)
-    ^start(animations/Stand/Gestures/Confused_1)
-    "I'm sorry, ~break200 could you please give me a rating between 1 and 5? Or you can just tap the stars on my screen."

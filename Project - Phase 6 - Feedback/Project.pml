@@ -6,24 +6,23 @@
     </BehaviorDescriptions>
     <Dialogs>
         <Dialog name="ExampleDialog" src="behavior_1/ExampleDialog/ExampleDialog.dlg" />
-        <Dialog name="Feedback_Survey" src="Feedback_Survey/Feedback_Survey.dlg" />
+        <Dialog name="feedback_survey" src="feedback_survey/feedback_survey.dlg" />
     </Dialogs>
     <Resources>
-        <File name="suit picture" src="html/pics/suit_picture.png" />
-        <File name="Graduation_Welcome" src="html/pics/Graduation_Welcome.jpg" />
-        <File name="class_of_2026_pic" src="html/pics/class_of_2026_pic.png" />
-        <File name="congrats_photo" src="html/pics/congrats_photo.jpg" />
-        <File name="diploma_picture" src="html/pics/diploma_picture.png" />
-        <File name="seating_map" src="html/pics/seating_map.png" />
-        <File name="seats" src="html/pics/seats.png" />
-        <File name="index" src="html/index.html" />
-        <File name="wlc" src="html/pics/wlc.jpg" />
-        <File name="script" src="html/script.js" />
-        <File name="style" src="html/style.css" />
+        <File name="feedback_survey" src="html/css/feedback_survey.css" />
+        <File name="feedback_survey" src="html/js/feedback_survey.js" />
+        <File name="feedback_survey" src="html/pages/feedback_survey.html" />
+        <File name="Congratulations" src="sounds/Congratulations.ogg" />
+        <File name="applause2" src="sounds/applause2.ogg" />
+        <File name="bonuspts" src="sounds/bonuspts.ogg" />
+        <File name="gamepositive" src="sounds/gamepositive.ogg" />
+        <File name="glitch" src="sounds/glitch.ogg" />
+        <File name="intro" src="sounds/intro.ogg" />
+        <File name="itempop" src="sounds/itempop.ogg" />
     </Resources>
     <Topics>
         <Topic name="ExampleDialog_enu" src="behavior_1/ExampleDialog/ExampleDialog_enu.top" topicName="ExampleDialog" language="en_US" />
-        <Topic name="Feedback_Survey_enu" src="Feedback_Survey/Feedback_Survey_enu.top" topicName="Feedback_Survey" language="en_US" />
+        <Topic name="feedback_survey_enu" src="feedback_survey/feedback_survey_enu.top" topicName="feedback_survey" language="en_US" />
     </Topics>
     <IgnoredPaths />
     <Translations auto-fill="en_US">
