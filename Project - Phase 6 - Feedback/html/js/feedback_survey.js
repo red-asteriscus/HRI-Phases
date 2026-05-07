@@ -52,7 +52,7 @@ var questions = {
 
 window.onload = function () {
     connectToPepper();
-    initSurveyPage();
+    showWaitingPage();
 };
 
 function connectToPepper() {
@@ -83,6 +83,12 @@ function subscribeToFeedbackEvents() {
         return;
     }
 
+    qiMemory.subscriber("feedbackSurveyStart").then(function (subscriber) {
+        subscriber.signal.connect(function (value) {
+            startSurvey(String(value));
+        });
+    });
+
     qiMemory.subscriber("feedbackSurveyAnswer").then(function (subscriber) {
         subscriber.signal.connect(function (value) {
             handleSurveyAnswer(String(value));
@@ -99,6 +105,30 @@ function subscribeToFeedbackEvents() {
 function initSurveyPage() {
     var key = getUrlParam("key", "overall");
 
+    if (!key || !questions[key]) {
+        key = "overall";
+    }
+
+    if (key === "overall") {
+        resetSurveyData();
+    }
+
+    currentKey = key;
+    displayQuestion(currentKey);
+}
+
+function showWaitingPage() {
+    document.body.className = "waiting";
+
+    setHtml("intro-label", "Feedback Survey");
+    setHtml("question-counter", "");
+    setHtml("question-text", "Feedback");
+    setHtml("helper-text", "");
+    setHtml("answers-container", "");
+    setHtml("save-status", "");
+}
+
+function startSurvey(key) {
     if (!key || !questions[key]) {
         key = "overall";
     }

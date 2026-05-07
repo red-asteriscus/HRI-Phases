@@ -21,6 +21,7 @@ u:(e:onStart)
     "Before we close, I would like to ask for your feedback about the graduation ceremony." ~break500
     "You can answer on the tablet, or by voice." ~break500
     "Please rate each question from one to five stars." ~break500
+    $feedbackSurveyStart="overall"
     "Question one. How would you rate the graduation ceremony overall?" ~break500
     ^wait(animations/Stand/Gestures/Explain_2)
 
