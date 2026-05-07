@@ -1,0 +1,19 @@
+topic: ~group_congrats()
+language: enu
+
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break500) \pau=500\
+
+u:(e:onStart)
+$web=1
+    ^start(animations/Stand/Gestures/ShowSky_1)
+    "Ladies and gentlemen, ~break100 please join me in congratulating the Computer Engineering graduating class." ~break500
+    "Graduates, this achievement belongs to you, and also to the families, friends, and professors who supported you." ~break500
+    ^wait(animations/Stand/Gestures/ShowSky_1)
+
+    ^start(animations/Stand/Gestures/Hooray_1)
+    "One more big round of applause for the Class of 2026." ~break500
+    ^wait(animations/Stand/Gestures/Hooray_1)
+ ~break500
+    $onStopped=1

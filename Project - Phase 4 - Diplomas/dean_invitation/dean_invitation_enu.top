@@ -1,0 +1,18 @@
+topic: ~dean_invitation()
+language: enu
+
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break500) \pau=500\
+
+u:(e:onStart)
+$web1=1
+    ^start(animations/Stand/Gestures/PointRight_1)
+    "To present the diplomas, ~break100 we now invite the Dean to the stage." ~break500
+    "I will call each graduate by name." ~break500
+    "As your name is called, please come forward to receive your diploma from the Dean." ~break500
+    ^wait(animations/Stand/Gestures/PointRight_1)
+    $applause=1
+    ~break500
+    ~break500 ~break500
+    $onStopped=1

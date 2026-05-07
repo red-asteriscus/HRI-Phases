@@ -1,0 +1,16 @@
+topic: ~student2_call()
+language: enu
+
+concept:(break50) \pau=50\
+concept:(break100) \pau=100\
+concept:(break500) \pau=500\
+
+u:(e:onStart)
+$web2=1
+    ^start(animations/Stand/Gestures/PointRight_1)
+    "Our next graduate is ~break100 Leana." ~break500
+    "Graduating with distinction." ~break500
+    "Leana, please come forward to receive your diploma from the Dean." ~break500
+    ^wait(animations/Stand/Gestures/PointRight_1)
+    $applause=1
+    $onStopped=1
