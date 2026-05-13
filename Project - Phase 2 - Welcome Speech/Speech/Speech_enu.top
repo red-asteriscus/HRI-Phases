@@ -10,7 +10,6 @@ concept:(break250) \pau=250\
 concept:(break500) \pau=500\
 concept:(break1000) \pau=1000\
 
-# Dialogue Logic
 u:(e:onStart)
 ~break1000
     $Speech=1

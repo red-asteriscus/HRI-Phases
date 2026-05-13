@@ -5,9 +5,12 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
     <title>Diploma Distribution</title>
 
-    <link rel="stylesheet" type="text/css" href="../css/diploma_segment.css">
+    <link rel="stylesheet" href="../css/diploma_segment.css">
 
+    <!-- Required for Pepper / Choregraphe ALMemory events -->
     <script src="/libs/qi/2/qi.js"></script>
+
+    <!-- Main page logic -->
     <script src="../js/diploma_segment.js"></script>
 </head>
 
@@ -22,10 +25,10 @@
             <div id="stage-card">
                 <div id="status-pill">
                     <span id="status-dot"></span>
-                    <span id="intro-label">DIPLOMA SEGMENT</span>
+                    <span id="intro-label"></span>
                 </div>
 
-                <table id="visual-table" cellpadding="0" cellspacing="0" border="0">
+                <table id="visual-table">
                     <tr>
                         <td class="visual-cell side-cell">
                             <div id="pepper-visual" class="visual-box">
@@ -34,6 +37,7 @@
                                     <span class="eye eye-right"></span>
                                     <span class="mouth"></span>
                                 </div>
+
                                 <div class="pepper-body"></div>
                                 <p>Pepper</p>
                             </div>
@@ -41,7 +45,7 @@
 
                         <td class="visual-cell visual-center">
                             <div id="center-badge">
-                                <div id="speaker-badge">D</div>
+                                <div id="speaker-badge"></div>
 
                                 <div id="diploma-icon">
                                     <div class="diploma-paper"></div>
@@ -56,7 +60,7 @@
                         <td class="visual-cell side-cell">
                             <div id="guest-visual" class="visual-box">
                                 <div id="guest-icon-frame">
-                                    <div id="guest-icon" class="guest-icon both-icon">
+                                    <div id="guest-icon" class="guest-icon">
                                         <div class="icon-hair"></div>
                                         <div class="icon-head"></div>
                                         <div class="icon-neck"></div>
@@ -64,22 +68,21 @@
                                         <div class="icon-accent"></div>
                                     </div>
                                 </div>
-                                <p id="guest-label">Graduate</p>
+
+                                <p id="guest-label"></p>
                             </div>
                         </td>
                     </tr>
                 </table>
 
                 <div id="speaker-panel">
-                    <p id="phase-text">Diploma Distribution</p>
-                    <h1 id="speaker-name">Computer Engineering Graduates</h1>
-                    <p id="speaker-title">Class of 2026</p>
-                    <p id="helper-text">We now recognize the achievements of our Computer Engineering graduates.</p>
+                    <p id="phase-text"></p>
+                    <h1 id="speaker-name"></h1>
+                    <p id="speaker-title"></p>
+                    <p id="helper-text"></p>
                 </div>
 
-                <button id="main-button" class="btn" type="button" onclick="onMainButton(); return false;">
-                    Diploma Received
-                </button>
+                <button id="main-button" class="btn" type="button"></button>
             </div>
         </div>
 

@@ -4,7 +4,8 @@
     padding: 0;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -13,19 +14,44 @@ html, body {
     background: linear-gradient(180deg, #f8f5ee 0%, #ffffff 52%, #f7f1e2 100%);
 }
 
-body {
+body,
+#wrapper,
+#celebration-scene {
     position: relative;
 }
 
 #wrapper {
-    position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
-.bg-glow {
+.bg-glow,
+#pepper-orbit,
+#pepper-orbit:before,
+#pepper-orbit:after,
+#pepper-avatar,
+.graduate,
+.grad-head,
+.grad-body,
+.grad-body:before,
+.grad-body:after,
+.grad-cap,
+.grad-cap:before,
+.grad-cap:after,
+.sparkle,
+#confetti-area,
+#hat-fall-area,
+.confetti-piece,
+.falling-hat,
+.hat-top,
+.hat-band,
+.hat-tassel,
+.hat-tassel:after {
     position: absolute;
+}
+
+.bg-glow {
     border-radius: 50%;
     pointer-events: none;
     filter: blur(8px);
@@ -63,7 +89,7 @@ body {
     width: 90%;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 24px 42px 28px 42px;
+    padding: 24px 42px 28px;
 }
 
 #event-label {
@@ -74,10 +100,6 @@ body {
     margin-bottom: 12px;
 }
 
-#phase-track {
-    display: none !important;
-}
-
 #hero-area {
     width: 100%;
     max-width: 960px;
@@ -85,15 +107,25 @@ body {
 }
 
 #celebration-scene {
-    position: relative;
     width: 100%;
     max-width: 800px;
     height: 275px;
-    margin: 0 auto 14px auto;
+    margin: 0 auto 14px;
+}
+
+#celebration-scene:before,
+#celebration-scene:after,
+#pepper-orbit:before,
+#pepper-orbit:after,
+.grad-body:before,
+.grad-body:after,
+.grad-cap:before,
+.grad-cap:after,
+.hat-tassel:after {
+    content: "";
 }
 
 #celebration-scene:before {
-    content: "";
     position: absolute;
     left: 50%;
     bottom: 22px;
@@ -106,7 +138,6 @@ body {
 }
 
 #celebration-scene:after {
-    content: "";
     position: absolute;
     left: 50%;
     bottom: 30px;
@@ -119,10 +150,7 @@ body {
     z-index: 1;
 }
 
-/* Pepper */
-
 #pepper-orbit {
-    position: absolute;
     top: 8px;
     left: 50%;
     width: 200px;
@@ -135,8 +163,6 @@ body {
 }
 
 #pepper-orbit:before {
-    content: "";
-    position: absolute;
     top: 14px;
     left: 14px;
     right: 14px;
@@ -146,8 +172,6 @@ body {
 }
 
 #pepper-orbit:after {
-    content: "";
-    position: absolute;
     left: 50%;
     bottom: -15px;
     width: 114px;
@@ -159,7 +183,6 @@ body {
 }
 
 #pepper-avatar {
-    position: absolute;
     top: 30px;
     left: 50%;
     width: 112px;
@@ -167,6 +190,10 @@ body {
     margin-left: -56px;
     cursor: default;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#pepper-avatar.pulse {
+    animation: pepperPulse 0.65s ease;
 }
 
 .pepper-head {
@@ -210,25 +237,14 @@ body {
 .pepper-body {
     width: 70px;
     height: 50px;
-    margin: -2px auto 0 auto;
+    margin: -2px auto 0;
     border: 4px solid #1a1a2e;
     border-radius: 34px 34px 18px 18px;
     background: #ffffff;
     box-shadow: 0 5px 12px rgba(0,0,0,0.04);
 }
 
-#pepper-avatar.pulse {
-    animation: pepperPulse 0.65s ease;
-}
-
-#pepper-avatar.wave {
-    animation: pepperWave 0.8s ease;
-}
-
-/* Graduate silhouettes */
-
 .graduate {
-    position: absolute;
     width: 82px;
     height: 114px;
     z-index: 3;
@@ -236,7 +252,6 @@ body {
 }
 
 .grad-head {
-    position: absolute;
     top: 28px;
     left: 50%;
     width: 24px;
@@ -247,7 +262,6 @@ body {
 }
 
 .grad-body {
-    position: absolute;
     top: 50px;
     left: 50%;
     width: 42px;
@@ -258,8 +272,6 @@ body {
 }
 
 .grad-body:before {
-    content: "";
-    position: absolute;
     left: 50%;
     top: 7px;
     width: 2px;
@@ -269,8 +281,6 @@ body {
 }
 
 .grad-body:after {
-    content: "";
-    position: absolute;
     left: 50%;
     bottom: -8px;
     width: 12px;
@@ -282,7 +292,6 @@ body {
 }
 
 .grad-cap {
-    position: absolute;
     top: 16px;
     left: 50%;
     width: 30px;
@@ -293,8 +302,6 @@ body {
 }
 
 .grad-cap:before {
-    content: "";
-    position: absolute;
     top: -6px;
     left: 50%;
     width: 34px;
@@ -306,8 +313,6 @@ body {
 }
 
 .grad-cap:after {
-    content: "";
-    position: absolute;
     top: 2px;
     right: -4px;
     width: 2px;
@@ -370,10 +375,7 @@ body {
     background: #1f2945;
 }
 
-/* Sparkles */
-
 .sparkle {
-    position: absolute;
     color: #d8b453;
     font-size: 18px;
     z-index: 6;
@@ -417,8 +419,6 @@ body {
     animation-delay: 0.2s;
 }
 
-/* Text */
-
 #intro-label {
     font-size: 13px;
     letter-spacing: 3px;
@@ -432,7 +432,7 @@ body {
     font-size: 48px;
     line-height: 1.12;
     color: #1a1a2e;
-    margin: 0 auto 16px auto;
+    margin: 0 auto 16px;
     max-width: 920px;
 }
 
@@ -440,22 +440,19 @@ body {
     font-size: 22px;
     line-height: 1.35;
     color: #6f6f7f;
-    margin: 0 auto 24px auto;
+    margin: 0 auto 24px;
     max-width: 780px;
     min-height: 58px;
 }
 
-/* Buttons */
-
-#button-container {
+#button-container,
+.button-group {
     width: 100%;
     text-align: center;
 }
 
 .button-group {
     display: none;
-    width: 100%;
-    text-align: center;
 }
 
 .btn {
@@ -475,68 +472,40 @@ body {
     transform: scale(0.97);
 }
 
-.btn-yes {
+.btn-yes,
+.btn-no {
     color: #ffffff;
+}
+
+.btn-yes {
     background: linear-gradient(180deg, #35d77d 0%, #29bd68 100%);
     box-shadow: 0 10px 22px rgba(52,214,123,0.22);
 }
 
 .btn-no {
-    color: #ffffff;
     background: linear-gradient(180deg, #ef6f66 0%, #dd5048 100%);
     box-shadow: 0 10px 22px rgba(231,76,60,0.20);
 }
 
-/* Completely remove cue buttons */
-
-#cue-panel {
-    display: none !important;
-}
-
-.btn-cue,
-.btn-cue-gold {
-    display: none !important;
-}
-
-/* Toast */
-
-#toast {
-    display: none;
-    position: absolute;
-    left: 50%;
-    bottom: 26px;
-    z-index: 20;
-    min-width: 320px;
-    margin-left: -160px;
-    padding: 15px 22px;
-    border-radius: 999px;
-    background: rgba(26, 26, 46, 0.94);
-    color: #ffffff;
-    font-size: 20px;
-    font-weight: bold;
-    box-shadow: 0 12px 26px rgba(26,26,46,0.18);
-}
-
-#toast.show {
-    display: block;
-    animation: toastIn 1.6s ease;
-}
-
-/* Confetti */
-
-#confetti-area {
-    position: absolute;
+#confetti-area,
+#hat-fall-area {
     top: 0;
     left: 0;
-    z-index: 12;
     width: 100%;
     height: 100%;
     pointer-events: none;
     overflow: hidden;
 }
 
+#confetti-area {
+    z-index: 12;
+}
+
+#hat-fall-area {
+    z-index: 13;
+}
+
 .confetti-piece {
-    position: absolute;
     top: -20px;
     width: 14px;
     height: 14px;
@@ -553,21 +522,7 @@ body {
     background: #2ecc71;
 }
 
-/* Falling graduation hats */
-
-#hat-fall-area {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 13;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-}
-
 .falling-hat {
-    position: absolute;
     top: -70px;
     width: 58px;
     height: 42px;
@@ -575,7 +530,6 @@ body {
 }
 
 .hat-top {
-    position: absolute;
     top: 0;
     left: 50%;
     width: 54px;
@@ -588,7 +542,6 @@ body {
 }
 
 .hat-band {
-    position: absolute;
     top: 16px;
     left: 50%;
     width: 34px;
@@ -599,7 +552,6 @@ body {
 }
 
 .hat-tassel {
-    position: absolute;
     top: 13px;
     left: 50%;
     width: 3px;
@@ -612,8 +564,6 @@ body {
 }
 
 .hat-tassel:after {
-    content: "";
-    position: absolute;
     bottom: -7px;
     left: 50%;
     width: 9px;
@@ -640,8 +590,6 @@ body {
     background: #1a1a2e;
 }
 
-/* Feedback phase */
-
 body.phase-feedback #phase-text {
     display: none;
     min-height: 0;
@@ -652,26 +600,13 @@ body.phase-feedback #button-container {
     margin-top: -8px;
 }
 
-body.phase-feedback .button-group {
-    margin-top: 0;
-}
-
+body.phase-feedback .button-group,
 body.phase-feedback .btn {
     margin-top: 0;
 }
 
-body.phase-feedback #cue-panel {
-    display: none !important;
-}
-
 body.phase-feedback #pepper-orbit {
     box-shadow: 0 18px 42px rgba(40,40,60,0.12);
-}
-
-/* Final phase */
-
-body.phase-final #cue-panel {
-    display: none !important;
 }
 
 body.phase-final #pepper-orbit {
@@ -691,28 +626,25 @@ body.phase-final .sparkle {
     color: #cfa63e;
 }
 
-/* Hats phase: only congratulations in center with falling hats */
-
 body.phase-hats #event-label,
 body.phase-hats #celebration-scene,
 body.phase-hats #intro-label,
 body.phase-hats #phase-text,
-body.phase-hats #button-container,
-body.phase-hats #cue-panel {
+body.phase-hats #button-container {
     display: none !important;
 }
 
-body.phase-hats #container {
+body.phase-hats #container,
+body.phase-hats #ceremony-shell,
+body.phase-hats #hero-area {
     height: 100%;
 }
 
 body.phase-hats #ceremony-shell {
-    height: 100%;
     padding: 0 50px;
 }
 
 body.phase-hats #hero-area {
-    height: 100%;
     display: table;
     width: 100%;
     max-width: 100%;
@@ -733,42 +665,18 @@ body.phase-hats #question-text {
     max-width: none;
 }
 
-/* Animations */
-
 @keyframes pepperPulse {
-    0% {
-        transform: scale(1);
-    }
-
-    45% {
-        transform: scale(1.08);
-    }
-
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(1); }
+    45% { transform: scale(1.08); }
+    100% { transform: scale(1); }
 }
 
 @keyframes pepperWave {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    25% {
-        transform: rotate(-6deg);
-    }
-
-    50% {
-        transform: rotate(6deg);
-    }
-
-    75% {
-        transform: rotate(-4deg);
-    }
-
-    100% {
-        transform: rotate(0deg);
-    }
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-6deg); }
+    50% { transform: rotate(6deg); }
+    75% { transform: rotate(-4deg); }
+    100% { transform: rotate(0deg); }
 }
 
 @keyframes sparkleFloat {
@@ -785,28 +693,6 @@ body.phase-hats #question-text {
     100% {
         transform: translateY(0) scale(1);
         opacity: 0.65;
-    }
-}
-
-@keyframes toastIn {
-    0% {
-        opacity: 0;
-        transform: translateY(14px);
-    }
-
-    15% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    85% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(14px);
     }
 }
 

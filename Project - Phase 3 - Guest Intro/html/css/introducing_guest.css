@@ -190,7 +190,6 @@ html, body {
     background: #c9a84c;
 }
 
-/* Pepper */
 .pepper-head {
     position: relative;
     width: 90px;
@@ -237,7 +236,6 @@ html, body {
     background: #ffffff;
 }
 
-/* Guest icons */
 #guest-icon-frame {
     position: relative;
     width: 118px;
@@ -422,10 +420,6 @@ html, body {
     color: #666666;
 }
 
-#helper-text {
-    display: none;
-}
-
 .btn {
     min-width: 350px;
     min-height: 66px;
@@ -455,7 +449,6 @@ html, body {
     animation: none;
 }
 
-/* Pepper speaking phases */
 body.phase-guest1_intro #pepper-visual,
 body.phase-guest1_to_guest2 #pepper-visual,
 body.phase-closure #pepper-visual {
@@ -470,7 +463,6 @@ body.phase-guest1_to_guest2 #guest-visual {
     opacity: 0.70;
 }
 
-/* Pepper waiting phases */
 body.phase-guest1_speech #pepper-visual,
 body.phase-guest2_speech #pepper-visual {
     opacity: 0.45;
@@ -497,11 +489,6 @@ body.phase-guest2_speech #status-dot {
     animation: blinkDot 1200ms linear infinite;
 }
 
-/* Closure */
-body.phase-closure #main-button {
-    display: none;
-}
-
 body.phase-closure #speaker-badge {
     background: #c9a84c;
     color: #1a1a2e;
@@ -522,7 +509,6 @@ body.phase-closure #guest-visual {
     animation: guestWaiting 1900ms ease-in-out infinite;
 }
 
-/* Effects */
 #confetti-area,
 #fireworks-area {
     position: absolute;
@@ -601,7 +587,6 @@ body.phase-closure #guest-visual {
     animation: fireworkRing 1250ms ease-out forwards;
 }
 
-/* Animations */
 @-webkit-keyframes pepperSpeaking {
     0% { -webkit-transform: scale(1) translateY(0); }
     35% { -webkit-transform: scale(1.06) translateY(-3px); }

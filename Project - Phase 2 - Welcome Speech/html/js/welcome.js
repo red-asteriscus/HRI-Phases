@@ -1,88 +1,89 @@
-var activePhase = "welcome";
-var welcomeEventSubscribed = false;
-var soundEnabled = true;
-var toastTimer = null;
-var speechConfettiTimer = null;
-
 var phaseMap = {
-    "welcome": {
+    welcome: {
         title: "Welcome to USEK Graduation Ceremony 2026",
         label: "Welcome Ceremony",
-        text: "Tap Pepper or choose a cue to test tablet interaction.",
-        sound: "sound-welcome"
+        text: "Tap Pepper or choose a cue to test tablet interaction."
     },
-    "ready": {
+
+    ready: {
         title: "Audience, are you ready to start?",
         label: "Readiness Check",
-        text: "Guests can answer by voice or by tablet.",
-        sound: "sound-ready"
+        text: "Guests can answer by voice or by tablet."
     },
-    "speech": {
+
+    speech: {
         title: "Welcome to USEK Graduation Ceremony 2026",
         label: "Main Speech",
-        text: "Pepper is speaking.",
-        sound: "sound-welcome"
+        text: "Pepper is speaking."
     }
 };
 
-function getUrlVars() {
-    var vars = {};
+function getUrlParam(param, defaultValue) {
+    var query = window.location.search.substring(1);
+    var pairs = query.split("&");
 
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-        vars[key] = decodeURIComponent(value);
-    });
+    for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split("=");
 
-    return vars;
-}
-
-function getUrlParam(param, defaultVal) {
-    var urlParam = defaultVal;
-
-    if (window.location.href.indexOf(param + "=") > -1) {
-        urlParam = getUrlVars()[param];
+        if (decodeURIComponent(pair[0]) === param) {
+            return decodeURIComponent(pair[1] || "");
+        }
     }
 
-    return urlParam;
+    return defaultValue;
 }
 
-function getPhaseData(phase) {
-    if (phaseMap[phase]) {
-        return phaseMap[phase];
+function getCurrentPhase() {
+    var phase = getUrlParam("phase", "welcome");
+
+    if (!phaseMap[phase]) {
+        phase = "welcome";
     }
 
-    return phaseMap["welcome"];
+    return phase;
 }
 
 function setText(id, value) {
-    var el = document.getElementById(id);
+    var element = document.getElementById(id);
 
-    if (el) {
-        el.innerHTML = value;
+    if (element) {
+        element.innerHTML = value;
     }
 }
 
-function addClass(el, className) {
-    if (!el) return;
+function setDisplay(id, displayValue) {
+    var element = document.getElementById(id);
 
-    if (el.className.indexOf(className) === -1) {
-        el.className = el.className + " " + className;
+    if (element) {
+        element.style.display = displayValue;
     }
 }
 
-function removeClass(el, className) {
-    if (!el) return;
+function addClass(element, className) {
+    if (!element) {
+        return;
+    }
 
-    el.className = el.className
-        .replace(new RegExp("\\b" + className + "\\b", "g"), "")
-        .replace(/  +/g, " ");
+    if ((" " + element.className + " ").indexOf(" " + className + " ") === -1) {
+        element.className = element.className + " " + className;
+    }
 }
 
-function displayPageInformation() {
-    var phase = getUrlParam("phase", "welcome");
-    var data = getPhaseData(phase);
+function removeClass(element, className) {
+    if (!element) {
+        return;
+    }
+
+    element.className = (" " + element.className + " ")
+        .replace(" " + className + " ", " ")
+        .replace(/  +/g, " ")
+        .replace(/^\s+|\s+$/g, "");
+}
+
+function renderPhase() {
+    var phase = getCurrentPhase();
+    var data = phaseMap[phase];
     var body = document.getElementsByTagName("body")[0];
-
-    activePhase = phase;
 
     if (body) {
         body.className = "phase-" + phase;
@@ -93,109 +94,45 @@ function displayPageInformation() {
     setText("phase-text", data.text);
 
     updatePhaseTrack(phase);
-    updateQuestionState();
-    updateSpeechConfetti(phase);
-    playSound(data.sound);
+    updateVisibleControls(phase);
+
+    if (phase === "speech") {
+        makeConfetti(false);
+    }
 }
 
-function updatePhaseTrack(phase) {
-    var steps = ["welcome", "ready", "speech"];
-    var i;
-    var el;
+function updatePhaseTrack(currentPhase) {
+    var phases = ["welcome", "ready", "speech"];
 
-    for (i = 0; i < steps.length; i++) {
-        el = document.getElementById("step-" + steps[i]);
-        removeClass(el, "active");
+    for (var i = 0; i < phases.length; i++) {
+        removeClass(document.getElementById("step-" + phases[i]), "active");
     }
 
-    el = document.getElementById("step-" + phase);
-    addClass(el, "active");
+    addClass(document.getElementById("step-" + currentPhase), "active");
 }
 
-function updateQuestionState() {
-    var phase = getUrlParam("phase", "welcome");
-    var groupYesNo = document.getElementById("group-yes-no");
-    var cuePanel = document.getElementById("cue-panel");
+function updateVisibleControls(phase) {
+    setDisplay("group-yes-no", "none");
+    setDisplay("cue-panel", "none");
 
-    if (groupYesNo) {
-        groupYesNo.style.display = "none";
-    }
-
-    if (cuePanel) {
-        cuePanel.style.display = "block";
+    if (phase === "welcome") {
+        setDisplay("cue-panel", "block");
     }
 
     if (phase === "ready") {
-        if (groupYesNo) {
-            groupYesNo.style.display = "block";
-        }
-
-        if (cuePanel) {
-            cuePanel.style.display = "none";
-        }
-    }
-
-    if (phase === "speech") {
-        if (cuePanel) {
-            cuePanel.style.display = "none";
-        }
+        setDisplay("group-yes-no", "block");
     }
 }
 
-function handleWelcomeAnswer(eventName) {
-    var currentPhase = getUrlParam("phase", "welcome");
-
-    if (currentPhase === "ready" && eventName === "yesAnswer") {
-        makeConfetti();
+function sendTabletEvent(eventName) {
+    if (typeof QiSession === "undefined") {
+        console.log("QiSession is not available. Could not send event:", eventName);
         return;
     }
-
-    if (currentPhase === "ready" && eventName === "noAnswer") {
-        pulsePepper("pulse");
-        return;
-    }
-}
-
-function raiseTabletEvent(eventName, eventValue) {
-    if (typeof raiseEvent === "function") {
-        raiseEvent(eventName, eventValue);
-    }
-}
-
-function onWelcomeButton(eventName) {
-    raiseTabletEvent(eventName, 1);
-    handleWelcomeAnswer(eventName);
-}
-
-function onCueButton(eventName, actionName) {
-    raiseTabletEvent(eventName, 1);
-
-    if (actionName === "wave") {
-        pulsePepper("wave");
-        return;
-    }
-
-    if (actionName === "cheer") {
-        makeConfetti();
-        return;
-    }
-}
-
-function subscribeToTabletAnswerEvents() {
-    if (welcomeEventSubscribed) return;
-    if (typeof QiSession === "undefined") return;
-
-    welcomeEventSubscribed = true;
 
     QiSession(function (session) {
         session.service("ALMemory").then(function (memory) {
-            memory.subscriber("tabletWelcomeAnswer").then(function (subscriber) {
-                subscriber.signal.connect(function (value) {
-                    handleWelcomeAnswer(String(value));
-                });
-            }, function (error) {
-                console.log("Could not subscribe:", error);
-            });
+            memory.raiseEvent(eventName, 1);
         }, function (error) {
             console.log("Could not access ALMemory:", error);
         });
@@ -204,10 +141,36 @@ function subscribeToTabletAnswerEvents() {
     });
 }
 
-function pulsePepper(className) {
+function setupTabletButtons() {
+    var buttons = document.querySelectorAll("[data-event]");
+
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function () {
+            var eventName = this.getAttribute("data-event");
+            var visualName = this.getAttribute("data-visual");
+
+            sendTabletEvent(eventName);
+            runTabletVisual(visualName);
+        });
+    }
+}
+
+function runTabletVisual(visualName) {
+    if (visualName === "wave") {
+        animatePepper("wave");
+    }
+
+    if (visualName === "confetti") {
+        makeConfetti(true);
+    }
+}
+
+function animatePepper(className) {
     var pepper = document.getElementById("pepper-avatar");
 
-    if (!pepper) return;
+    if (!pepper) {
+        return;
+    }
 
     removeClass(pepper, "pulse");
     removeClass(pepper, "wave");
@@ -221,66 +184,12 @@ function pulsePepper(className) {
     }, 20);
 }
 
-function showToast(message) {
-    var toast = document.getElementById("toast");
-
-    if (!toast) return;
-
-    toast.innerHTML = message;
-
-    removeClass(toast, "show");
-
-    if (toastTimer) {
-        clearTimeout(toastTimer);
-    }
-
-    setTimeout(function () {
-        addClass(toast, "show");
-    }, 20);
-
-    toastTimer = setTimeout(function () {
-        removeClass(toast, "show");
-    }, 1600);
-}
-
-function updateSpeechConfetti(phase) {
-    if (phase === "speech") {
-        startSpeechConfetti();
-        return;
-    }
-
-    stopSpeechConfetti();
-}
-
-function startSpeechConfetti() {
-    if (speechConfettiTimer) return;
-
-    makeConfetti(false);
-
-    speechConfettiTimer = setInterval(function () {
-        makeConfetti(false);
-    }, 650);
-}
-
-function stopSpeechConfetti() {
-    var area = document.getElementById("confetti-area");
-
-    if (speechConfettiTimer) {
-        clearInterval(speechConfettiTimer);
-        speechConfettiTimer = null;
-    }
-
-    if (area) {
-        area.innerHTML = "";
-    }
-}
-
 function makeConfetti(clearExisting) {
     var area = document.getElementById("confetti-area");
-    var piece;
-    var i;
 
-    if (!area) return;
+    if (!area) {
+        return;
+    }
 
     if (typeof clearExisting === "undefined") {
         clearExisting = true;
@@ -290,8 +199,9 @@ function makeConfetti(clearExisting) {
         area.innerHTML = "";
     }
 
-    for (i = 0; i < 28; i++) {
-        piece = document.createElement("span");
+    for (var i = 0; i < 28; i++) {
+        var piece = document.createElement("span");
+
         piece.className = "confetti-piece";
 
         if (i % 3 === 1) {
@@ -306,25 +216,14 @@ function makeConfetti(clearExisting) {
         piece.style.animationDelay = ((i % 6) * 0.08) + "s";
 
         area.appendChild(piece);
-        removeConfettiPieceLater(piece);
     }
 
-    if (clearExisting) {
-        setTimeout(function () {
-            area.innerHTML = "";
-        }, 2100);
-    }
-}
-
-function removeConfettiPieceLater(piece) {
     setTimeout(function () {
-        if (piece && piece.parentNode) {
-            piece.parentNode.removeChild(piece);
-        }
+        area.innerHTML = "";
     }, 2100);
 }
 
 window.addEventListener("DOMContentLoaded", function () {
-    displayPageInformation();
-    subscribeToTabletAnswerEvents();
+    renderPhase();
+    setupTabletButtons();
 });

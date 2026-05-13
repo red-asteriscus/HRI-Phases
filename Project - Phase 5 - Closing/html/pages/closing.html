@@ -5,11 +5,8 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0">
     <title>Closing - Graduation 2026</title>
 
-    <link rel="stylesheet" type="text/css" href="../css/closing.css">
-
+    <link rel="stylesheet" href="../css/closing.css">
     <script src="/libs/qi/2/qi.js"></script>
-    <script src="../js/jquery.js"></script>
-    <script src="../js/qievents.js"></script>
     <script src="../js/closing.js"></script>
 </head>
 
@@ -79,34 +76,22 @@
                         </div>
                     </div>
 
-                    <p id="intro-label">Closing Ceremony</p>
-                    <h1 id="question-text">Loading...</h1>
-                    <p id="phase-text">Loading...</p>
+                    <p id="intro-label"></p>
+                    <h1 id="question-text"></h1>
+                    <p id="phase-text"></p>
                 </div>
 
                 <div id="button-container">
                     <div id="group-yes-no" class="button-group">
-                        <button class="btn btn-yes" type="button" onclick="onClosingButton('yesAnswer')">
-                            Yes, start survey
-                        </button>
-
-                        <button class="btn btn-no" type="button" onclick="onClosingButton('noAnswer')">
-                            Not yet
-                        </button>
+                        <button id="yes-button" class="btn btn-yes" type="button">Yes, start survey</button>
+                        <button id="no-button" class="btn btn-no" type="button">Not yet</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="toast">Ready</div>
         <div id="confetti-area"></div>
         <div id="hat-fall-area"></div>
     </div>
-
-    <audio id="sound-button" src="../sounds/itempop.ogg" preload="auto"></audio>
-    <audio id="sound-closing" src="../sounds/intro.ogg" preload="auto"></audio>
-    <audio id="sound-feedback" src="../sounds/gamepositive.ogg" preload="auto"></audio>
-    <audio id="sound-final" src="../sounds/applause2.ogg" preload="auto"></audio>
-    <audio id="sound-waiting" src="../sounds/glitch.ogg" preload="auto"></audio>
 </body>
 </html>

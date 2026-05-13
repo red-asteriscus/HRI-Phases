@@ -1,48 +1,48 @@
 var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxcKSawhm1tP1yVr6h4GPV0DHiLVFGi9dZm3MF5uJ3hzwc1hcViZCOU4ZzHVnscGKFISw/exec";
 
-var qiSession = null;
 var qiMemory = null;
-
-var currentKey = "overall";
 var storageKey = "graduation_feedback_survey_data";
 
+/* In-memory fallback for environments where localStorage is unavailable (e.g. Pepper's WebView) */
+var surveyDataCache = null;
+
 var questions = {
-    "overall": {
+    overall: {
         number: "Question 1 of 5",
         text: "How was the graduation ceremony overall?",
         helper: "Tap a number from 1 to 5, or say your rating.",
         type: "rating"
     },
 
-    "organization": {
+    organization: {
         number: "Question 2 of 5",
         text: "How well was the ceremony organized?",
         helper: "Tap a number from 1 to 5, or say your rating.",
         type: "rating"
     },
 
-    "pace": {
+    pace: {
         number: "Question 3 of 5",
         text: "How was the pace of the ceremony?",
         helper: "Tap a number from 1 to 5, or say your rating.",
         type: "rating"
     },
 
-    "pepper": {
+    pepper: {
         number: "Question 4 of 5",
         text: "How was Pepper's participation?",
         helper: "Tap a number from 1 to 5, or say your rating.",
         type: "rating"
     },
 
-    "recommend": {
+    recommend: {
         number: "Question 5 of 5",
         text: "Should Pepper join future ceremonies?",
         helper: "Tap Yes or No, or answer by voice.",
         type: "yesno"
     },
 
-    "complete": {
+    complete: {
         number: "Survey Complete",
         text: "Thank you. Your feedback was submitted.",
         helper: "Your response helps us improve future ceremonies.",
@@ -50,9 +50,24 @@ var questions = {
     }
 };
 
+var ratingEventNames = {
+    overall: "surveyOverall",
+    organization: "surveyOrganization",
+    pace: "surveyPace",
+    pepper: "surveyPepper"
+};
+
+var surveyDataFields = {
+    overall: "overallRating",
+    organization: "organizationRating",
+    pace: "paceRating",
+    pepper: "pepperRating"
+};
+
 window.onload = function () {
-    connectToPepper();
     showWaitingPage();
+    setupAnswerButtons();
+    connectToPepper();
 };
 
 function connectToPepper() {
@@ -62,18 +77,16 @@ function connectToPepper() {
 
     try {
         QiSession(function (session) {
-            qiSession = session;
-
             session.service("ALMemory").then(function (memory) {
                 qiMemory = memory;
                 subscribeToFeedbackEvents();
+            }, function () {
+                qiMemory = null;
             });
         }, function () {
-            qiSession = null;
             qiMemory = null;
         });
     } catch (e) {
-        qiSession = null;
         qiMemory = null;
     }
 }
@@ -102,21 +115,6 @@ function subscribeToFeedbackEvents() {
     });
 }
 
-function initSurveyPage() {
-    var key = getUrlParam("key", "overall");
-
-    if (!key || !questions[key]) {
-        key = "overall";
-    }
-
-    if (key === "overall") {
-        resetSurveyData();
-    }
-
-    currentKey = key;
-    displayQuestion(currentKey);
-}
-
 function showWaitingPage() {
     document.body.className = "waiting";
 
@@ -129,7 +127,7 @@ function showWaitingPage() {
 }
 
 function startSurvey(key) {
-    if (!key || !questions[key]) {
+    if (!questions[key]) {
         key = "overall";
     }
 
@@ -137,25 +135,18 @@ function startSurvey(key) {
         resetSurveyData();
     }
 
-    currentKey = key;
-    displayQuestion(currentKey);
+    displayQuestion(key);
 }
 
 function displayQuestion(key) {
     var question = questions[key];
 
     if (!question) {
-        question = questions["overall"];
         key = "overall";
+        question = questions.overall;
     }
 
-    currentKey = key;
-
-    if (key === "complete") {
-        document.body.className = "complete";
-    } else {
-        document.body.className = "";
-    }
+    document.body.className = key === "complete" ? "complete" : "";
 
     setHtml("question-counter", question.number);
     setHtml("question-text", question.text);
@@ -172,8 +163,6 @@ function displayQuestion(key) {
 }
 
 function displayRatingButtons(key) {
-    var html = "";
-    var i;
     var labels = {
         1: "Poor",
         2: "Fair",
@@ -181,9 +170,12 @@ function displayRatingButtons(key) {
         4: "Great",
         5: "Excellent"
     };
+    var html = "";
+    var i;
+    var eventPrefix = ratingEventNames[key] || "";
 
     for (i = 1; i <= 5; i++) {
-        html += '<button class="rating-btn" data-key="' + key + '" data-value="' + i + '" onclick="sendTabletRating(this, \'' + key + '\',' + i + '); return false;">';
+        html += '<button class="rating-btn" type="button" data-key="' + key + '" data-value="' + i + '" data-event="' + eventPrefix + i + '">';
         html += '<span class="rating-number">' + i + '</span>';
         html += '<span class="rating-star">★</span>';
         html += '<span class="rating-label">' + labels[i] + '</span>';
@@ -196,53 +188,67 @@ function displayRatingButtons(key) {
 function displayYesNoButtons() {
     var html = "";
 
-    html += '<button class="choice-btn" data-key="recommend" data-value="yes" onclick="sendTabletYesNo(this, \'yes\'); return false;">Yes</button>';
-    html += '<button class="choice-btn" data-key="recommend" data-value="no" onclick="sendTabletYesNo(this, \'no\'); return false;">No</button>';
+    html += '<button class="choice-btn" type="button" data-key="recommend" data-value="yes" data-event="surveyRecommendYes">Yes</button>';
+    html += '<button class="choice-btn" type="button" data-key="recommend" data-value="no" data-event="surveyRecommendNo">No</button>';
 
     setHtml("answers-container", html);
 }
 
-function sendTabletRating(button, key, value) {
-    var eventName = "";
+function setupAnswerButtons() {
+    var container = document.getElementById("answers-container");
 
-    showPressedButton(button);
-    setHtml("save-status", "Selected " + value + ". Please wait...");
-
-    if (key === "overall") {
-        eventName = "surveyOverall" + value;
-    } else if (key === "organization") {
-        eventName = "surveyOrganization" + value;
-    } else if (key === "pace") {
-        eventName = "surveyPace" + value;
-    } else if (key === "pepper") {
-        eventName = "surveyPepper" + value;
+    if (!container) {
+        return;
     }
 
-    if (eventName !== "") {
-        raiseTabletEvent(eventName, 1);
-    }
+    container.addEventListener("click", function (event) {
+        var button = findClickedButton(event.target, container);
+
+        if (button) {
+            sendTabletSelection(button);
+        }
+    });
 }
 
-function sendTabletYesNo(button, value) {
-    showPressedButton(button);
-    setHtml("save-status", "Selected " + capitalize(value) + ". Please wait...");
+function findClickedButton(element, container) {
+    while (element && element !== container) {
+        if (element.tagName && element.tagName.toLowerCase() === "button") {
+            return element;
+        }
 
-    if (value === "yes") {
-        raiseTabletEvent("surveyRecommendYes", 1);
-    } else {
-        raiseTabletEvent("surveyRecommendNo", 1);
+        element = element.parentNode;
     }
+
+    return null;
+}
+
+function sendTabletSelection(button) {
+    var key = button.getAttribute("data-key");
+    var value = button.getAttribute("data-value");
+    var eventName = button.getAttribute("data-event");
+
+    if (!eventName) {
+        return;
+    }
+
+    showPressedButton(button);
+
+    if (key === "recommend") {
+        setHtml("save-status", "Selected " + capitalize(value) + ". Please wait...");
+    } else {
+        setHtml("save-status", "Selected " + value + ". Please wait...");
+    }
+
+    raiseTabletEvent(eventName, 1);
 }
 
 function showPressedButton(button) {
-    var buttons;
+    var buttons = document.getElementsByTagName("button");
     var i;
 
     if (!button) {
         return;
     }
-
-    buttons = document.getElementsByTagName("button");
 
     for (i = 0; i < buttons.length; i++) {
         buttons[i].className = buttons[i].className.replace(" is-pressed", "");
@@ -252,12 +258,10 @@ function showPressedButton(button) {
 }
 
 function showVoicePressedAnswer(key, answer) {
-    var buttons;
+    var buttons = document.getElementsByTagName("button");
     var i;
     var buttonKey;
     var buttonValue;
-
-    buttons = document.getElementsByTagName("button");
 
     for (i = 0; i < buttons.length; i++) {
         buttons[i].className = buttons[i].className.replace(" is-pressed", "");
@@ -282,6 +286,7 @@ function handleSurveyAnswer(value) {
     var key;
     var answer;
     var data;
+    var dataField;
 
     if (!value) {
         return;
@@ -299,21 +304,12 @@ function handleSurveyAnswer(value) {
     showVoicePressedAnswer(key, answer);
 
     data = getSurveyData();
+    dataField = surveyDataFields[key];
 
-    if (key === "overall") {
-        data.overallRating = answer;
-    } else if (key === "organization") {
-        data.organizationRating = answer;
-    } else if (key === "pace") {
-        data.paceRating = answer;
-    } else if (key === "pepper") {
-        data.pepperRating = answer;
+    if (dataField) {
+        data[dataField] = answer;
     } else if (key === "recommend") {
-        if (answer === "yes") {
-            data.recommendNextCeremony = "Yes";
-        } else {
-            data.recommendNextCeremony = "No";
-        }
+        data.recommendNextCeremony = answer === "yes" ? "Yes" : "No";
     }
 
     if (data.inputMethod === "") {
@@ -331,40 +327,16 @@ function handleSurveyAdvance(nextKey) {
     if (nextKey === "complete") {
         displayQuestion("complete");
         submitSurvey();
-    } else {
-        displayQuestion(nextKey);
-    }
-}
-
-function getNextKey(key) {
-    if (key === "overall") {
-        return "organization";
+        return;
     }
 
-    if (key === "organization") {
-        return "pace";
-    }
-
-    if (key === "pace") {
-        return "pepper";
-    }
-
-    if (key === "pepper") {
-        return "recommend";
-    }
-
-    if (key === "recommend") {
-        return "complete";
-    }
-
-    return "overall";
+    displayQuestion(nextKey);
 }
 
 function submitSurvey() {
     var data = getSurveyData();
 
     setHtml("save-status", "Saving response...");
-
     makeConfetti(42, 1700);
 
     if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.indexOf("PASTE_") === 0) {
@@ -424,47 +396,68 @@ function raiseTabletEvent(eventName, value) {
             qiMemory.raiseEvent(eventName, value);
             return;
         } catch (e) {
+            qiMemory = null;
         }
     }
 
-    if (typeof QiSession !== "undefined") {
-        try {
-            QiSession(function (session) {
-                session.service("ALMemory").then(function (memory) {
-                    memory.raiseEvent(eventName, value);
-                });
-            }, function () {});
-        } catch (e2) {
-        }
+    if (typeof QiSession === "undefined") {
+        return;
+    }
+
+    try {
+        QiSession(function (session) {
+            session.service("ALMemory").then(function (memory) {
+                qiMemory = memory;
+                qiMemory.raiseEvent(eventName, value);
+            });
+        }, function () {
+            qiMemory = null;
+        });
+    } catch (e2) {
+        qiMemory = null;
     }
 }
 
 function getSurveyData() {
-    var raw;
-    var data;
-
-    try {
-        raw = window.localStorage.getItem(storageKey);
-        if (raw) {
-            data = JSON.parse(raw);
-            return data;
-        }
-    } catch (e) {
+    /* Use in-memory cache as primary source; localStorage as secondary persistence */
+    if (surveyDataCache) {
+        return surveyDataCache;
     }
 
-    return makeNewSurveyData();
+    try {
+        var raw = window.localStorage.getItem(storageKey);
+
+        if (raw) {
+            surveyDataCache = JSON.parse(raw);
+            return surveyDataCache;
+        }
+    } catch (e) {
+        /* localStorage unavailable (e.g. Pepper WebView) - fall through to fresh object */
+    }
+
+    surveyDataCache = makeNewSurveyData();
+    return surveyDataCache;
 }
 
 function saveSurveyData(data) {
+    /* Always update in-memory cache */
+    surveyDataCache = data;
+
     try {
         window.localStorage.setItem(storageKey, JSON.stringify(data));
     } catch (e) {
+        /* localStorage unavailable - data is still held in surveyDataCache for this session */
     }
 }
 
 function resetSurveyData() {
-    var data = makeNewSurveyData();
-    saveSurveyData(data);
+    surveyDataCache = makeNewSurveyData();
+
+    try {
+        window.localStorage.setItem(storageKey, JSON.stringify(surveyDataCache));
+    } catch (e) {
+        /* localStorage unavailable - reset held in-memory */
+    }
 }
 
 function makeNewSurveyData() {
@@ -479,31 +472,11 @@ function makeNewSurveyData() {
     };
 }
 
-function getUrlVars() {
-    var vars = {};
-
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-        vars[key] = decodeURIComponent(value);
-    });
-
-    return vars;
-}
-
-function getUrlParam(param, defaultVal) {
-    var urlParam = defaultVal;
-
-    if (window.location.href.indexOf(param + "=") > -1) {
-        urlParam = getUrlVars()[param];
-    }
-
-    return urlParam;
-}
-
 function setHtml(id, value) {
-    var el = document.getElementById(id);
+    var element = document.getElementById(id);
 
-    if (el) {
-        el.innerHTML = value;
+    if (element) {
+        element.innerHTML = value;
     }
 }
 

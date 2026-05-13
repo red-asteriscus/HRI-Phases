@@ -1,257 +1,199 @@
-var activePhase = "closing";
-var closingEventSubscribed = false;
-var toastTimer = null;
-var finalConfettiTimer = null;
-var hatFallTimer = null;
+var phases = {
+    closing: {
+        label: "Survey Introduction",
+        title: "Before you leave, we would love your feedback",
+        text: "Please take a moment to complete the graduation survey."
+    },
 
-var phaseMap = {
-    "final": {
-        title: "Thank you for celebrating with us",
+    feedback: {
+        label: "Survey Question",
+        title: "Are you ready to meet me at the exit?",
+        text: "",
+        buttons: true
+    },
+
+    final: {
         label: "Closing Message",
+        title: "Thank you for celebrating with us",
         text: "Congratulations, Class of 2026. We wish you success in every next step.",
-        showButtons: false,
         confetti: true
     },
 
-    "closing": {
-        title: "Before you leave, we would love your feedback",
-        label: "Survey Introduction",
-        text: "Please take a moment to complete the graduation survey.",
-        showButtons: false,
-        confetti: false
-    },
-
-    "feedback": {
-        title: "Are you ready to meet me at the exit?",
-        label: "Survey Question",
+    hats: {
+        label: "Graduation Moment",
+        title: "Congrats!",
         text: "",
-        showButtons: true,
-        confetti: false
-    },
-
-    "hats": {
-    title: "Congrats!",
-    label: "Graduation Moment",
-    text: "",
-    showButtons: false,
-    confetti: false,
-    hats: true
-}
+        hats: true
+    }
 };
 
-function getUrlVars() {
-    var vars = {};
+var memory = null;
+var subscribers = [];
+var confettiTimer = null;
+var hatTimer = null;
 
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-        vars[key] = decodeURIComponent(value);
-    });
-
-    return vars;
-}
-
-function getUrlParam(param, defaultVal) {
-    var value = defaultVal;
-
-    if (window.location.href.indexOf(param + "=") > -1) {
-        value = getUrlVars()[param];
-    }
-
-    return value;
-}
-
-function getPhaseData(phase) {
-    if (phaseMap[phase]) {
-        return phaseMap[phase];
-    }
-
-    return phaseMap["closing"];
+function el(id) {
+    return document.getElementById(id);
 }
 
 function setText(id, value) {
-    var element = document.getElementById(id);
-
+    var element = el(id);
     if (element) {
-        element.innerHTML = value;
+        element.textContent = value || "";
     }
 }
 
-function addClass(element, className) {
-    if (!element) return;
+function getPhase() {
+    var match = window.location.search.match(/[?&]phase=([^&]+)/);
+    var phase = match ? decodeURIComponent(match[1].replace(/\+/g, " ")) : "closing";
 
-    if (element.className.indexOf(className) === -1) {
-        element.className = element.className + " " + className;
-    }
+    return phases[phase] ? phase : "closing";
 }
 
-function removeClass(element, className) {
-    if (!element) return;
-
-    element.className = element.className
-        .replace(new RegExp("\\b" + className + "\\b", "g"), "")
-        .replace(/  +/g, " ");
-}
-
-function displayPageInformation() {
-    var phase = getUrlParam("phase", "closing");
-    var data = getPhaseData(phase);
-    var body = document.getElementsByTagName("body")[0];
-
-    activePhase = phase;
-
-    if (body) {
-        body.className = "phase-" + phase;
-    }
-
-    setText("question-text", data.title);
-    setText("intro-label", data.label);
-    setText("phase-text", data.text);
-
-    updateButtonState(data);
-    updateConfettiState(data);
-}
-
-function updateButtonState(data) {
-    var groupYesNo = document.getElementById("group-yes-no");
-
-    if (groupYesNo) {
-        groupYesNo.style.display = "none";
-    }
-
-    if (data.showButtons && groupYesNo) {
-        groupYesNo.style.display = "block";
-    }
-}
-
-function handleClosingAnswer(eventName) {
-    if (eventName === "yesAnswer") {
-        makeConfetti(true);
+function connectMemory() {
+    if (typeof QiSession === "undefined") {
         return;
     }
-
-    if (eventName === "noAnswer") {
-        pulsePepper("pulse");
-        return;
-    }
-}
-
-function raiseTabletEvent(eventName, eventValue) {
-    if (typeof raiseEvent === "function") {
-        raiseEvent(eventName, eventValue);
-    }
-}
-
-function onClosingButton(eventName) {
-    raiseTabletEvent(eventName, 1);
-    handleClosingAnswer(eventName);
-}
-
-function subscribeToTabletAnswerEvents() {
-    if (closingEventSubscribed) return;
-    if (typeof QiSession === "undefined") return;
-
-    closingEventSubscribed = true;
 
     QiSession(function (session) {
-        session.service("ALMemory").then(function (memory) {
-            memory.subscriber("tabletClosingAnswer").then(function (subscriber) {
-                subscriber.signal.connect(function (value) {
-                    handleClosingAnswer(String(value));
-                });
-            }, function (error) {
-                console.log("Could not subscribe to tabletClosingAnswer:", error);
-            });
-        }, function (error) {
-            console.log("Could not access ALMemory:", error);
+        session.service("ALMemory").then(function (service) {
+            memory = service;
+            subscribeToRobotAnswers();
         });
-    }, function () {
-        console.log("Disconnected from QiSession");
     });
 }
 
-function pulsePepper(className) {
-    var pepper = document.getElementById("pepper-avatar");
-
-    if (!pepper) return;
-
-    removeClass(pepper, "pulse");
-    removeClass(pepper, "wave");
-
-    setTimeout(function () {
-        addClass(pepper, className);
-
-        setTimeout(function () {
-            removeClass(pepper, className);
-        }, 900);
-    }, 20);
-}
-
-function showToast(message) {
-    var toast = document.getElementById("toast");
-
-    if (!toast) return;
-
-    toast.innerHTML = message;
-    removeClass(toast, "show");
-
-    if (toastTimer) {
-        clearTimeout(toastTimer);
+function subscribeToRobotAnswers() {
+    if (!memory) {
+        return;
     }
 
-    setTimeout(function () {
-        addClass(toast, "show");
-    }, 20);
-
-    toastTimer = setTimeout(function () {
-        removeClass(toast, "show");
-    }, 1700);
+    memory.subscriber("tabletClosingAnswer").then(function (subscriber) {
+        subscribers.push(subscriber);
+        subscriber.signal.connect(function (value) {
+            reactToAnswer(String(value));
+        });
+    });
 }
 
-function updateConfettiState(data) {
+function raiseMemoryEvent(eventName) {
+    if (!eventName) {
+        return;
+    }
+
+    if (memory) {
+        memory.raiseEvent(eventName, 1);
+        return;
+    }
+
+    if (typeof QiSession !== "undefined") {
+        QiSession(function (session) {
+            session.service("ALMemory").then(function (service) {
+                service.raiseEvent(eventName, 1);
+            });
+        });
+    }
+}
+
+function showPhase() {
+    var phase = getPhase();
+    var data = phases[phase];
+    var groupYesNo = el("group-yes-no");
+
+    document.body.className = "phase-" + phase;
+
+    setText("intro-label", data.label);
+    setText("question-text", data.title);
+    setText("phase-text", data.text);
+
+    if (groupYesNo) {
+        groupYesNo.style.display = data.buttons ? "block" : "none";
+    }
+
+    stopConfetti();
+    stopHats();
+
     if (data.confetti) {
-        startFinalConfetti();
-    } else {
-        stopFinalConfetti();
+        startConfetti();
     }
 
     if (data.hats) {
-        startHatFall();
-    } else {
-        stopHatFall();
+        startHats();
     }
 }
 
-function startFinalConfetti() {
-    if (finalConfettiTimer) return;
+function sendAnswer(eventName) {
+    raiseMemoryEvent(eventName);
+    reactToAnswer(eventName);
+}
+
+function reactToAnswer(value) {
+    if (value === "yesAnswer") {
+        makeConfetti(true);
+    }
+
+    if (value === "noAnswer") {
+        pulsePepper();
+    }
+}
+
+function pulsePepper() {
+    var pepper = el("pepper-avatar");
+
+    if (!pepper) {
+        return;
+    }
+
+    pepper.className = "";
+
+    setTimeout(function () {
+        pepper.className = "pulse";
+    }, 20);
+
+    setTimeout(function () {
+        pepper.className = "";
+    }, 920);
+}
+
+function removeLater(node, delay) {
+    setTimeout(function () {
+        if (node.parentNode) {
+            node.parentNode.removeChild(node);
+        }
+    }, delay);
+}
+
+function startConfetti() {
+    if (confettiTimer) {
+        return;
+    }
 
     makeConfetti(false);
 
-    finalConfettiTimer = setInterval(function () {
+    confettiTimer = setInterval(function () {
         makeConfetti(false);
     }, 700);
 }
 
-function stopFinalConfetti() {
-    var area = document.getElementById("confetti-area");
-
-    if (finalConfettiTimer) {
-        clearInterval(finalConfettiTimer);
-        finalConfettiTimer = null;
+function stopConfetti() {
+    if (confettiTimer) {
+        clearInterval(confettiTimer);
+        confettiTimer = null;
     }
 
+    var area = el("confetti-area");
     if (area) {
         area.innerHTML = "";
     }
 }
 
 function makeConfetti(clearExisting) {
-    var area = document.getElementById("confetti-area");
+    var area = el("confetti-area");
     var piece;
     var i;
 
-    if (!area) return;
-
-    if (typeof clearExisting === "undefined") {
-        clearExisting = true;
+    if (!area) {
+        return;
     }
 
     if (clearExisting) {
@@ -260,128 +202,73 @@ function makeConfetti(clearExisting) {
 
     for (i = 0; i < 32; i++) {
         piece = document.createElement("span");
-        piece.className = "confetti-piece";
-
-        if (i % 3 === 1) {
-            piece.className += " alt";
-        }
-
-        if (i % 3 === 2) {
-            piece.className += " alt2";
-        }
-
+        piece.className = "confetti-piece" + (i % 3 === 1 ? " alt" : i % 3 === 2 ? " alt2" : "");
         piece.style.left = ((i * 41 + 28) % 1120) + "px";
         piece.style.animationDelay = ((i % 7) * 0.08) + "s";
-
         area.appendChild(piece);
-        removeConfettiPieceLater(piece);
-    }
-
-    if (clearExisting) {
-        setTimeout(function () {
-            area.innerHTML = "";
-        }, 2200);
+        removeLater(piece, 2200);
     }
 }
 
-function removeConfettiPieceLater(piece) {
-    setTimeout(function () {
-        if (piece && piece.parentNode) {
-            piece.parentNode.removeChild(piece);
-        }
-    }, 2200);
-}
-
-function startHatFall() {
-    if (hatFallTimer) return;
-
-    makeGraduationHats(false);
-
-    hatFallTimer = setInterval(function () {
-        makeGraduationHats(false);
-    }, 850);
-}
-
-function stopHatFall() {
-    var area = document.getElementById("hat-fall-area");
-
-    if (hatFallTimer) {
-        clearInterval(hatFallTimer);
-        hatFallTimer = null;
+function startHats() {
+    if (hatTimer) {
+        return;
     }
 
+    makeHats();
+
+    hatTimer = setInterval(makeHats, 850);
+}
+
+function stopHats() {
+    if (hatTimer) {
+        clearInterval(hatTimer);
+        hatTimer = null;
+    }
+
+    var area = el("hat-fall-area");
     if (area) {
         area.innerHTML = "";
     }
 }
 
-function makeGraduationHats(clearExisting) {
-    var area = document.getElementById("hat-fall-area");
+function makeHats() {
+    var area = el("hat-fall-area");
     var hat;
-    var top;
-    var band;
-    var tassel;
     var i;
 
-    if (!area) return;
-
-    if (typeof clearExisting === "undefined") {
-        clearExisting = true;
-    }
-
-    if (clearExisting) {
-        area.innerHTML = "";
+    if (!area) {
+        return;
     }
 
     for (i = 0; i < 14; i++) {
         hat = document.createElement("span");
-        hat.className = "falling-hat";
-
-        if (i % 2 === 1) {
-            hat.className += " hat-small";
-        }
-
-        if (i % 3 === 2) {
-            hat.className += " hat-gold";
-        }
-
-        top = document.createElement("span");
-        top.className = "hat-top";
-
-        band = document.createElement("span");
-        band.className = "hat-band";
-
-        tassel = document.createElement("span");
-        tassel.className = "hat-tassel";
-
-        hat.appendChild(top);
-        hat.appendChild(band);
-        hat.appendChild(tassel);
-
+        hat.className = "falling-hat" + (i % 2 === 1 ? " hat-small" : "") + (i % 3 === 2 ? " hat-gold" : "");
+        hat.innerHTML = '<span class="hat-top"></span><span class="hat-band"></span><span class="hat-tassel"></span>';
         hat.style.left = ((i * 83 + 35) % 1120) + "px";
         hat.style.animationDelay = ((i % 7) * 0.13) + "s";
         hat.style.animationDuration = (3.2 + (i % 4) * 0.35) + "s";
-
         area.appendChild(hat);
-        removeHatLater(hat);
-    }
-
-    if (clearExisting) {
-        setTimeout(function () {
-            area.innerHTML = "";
-        }, 4600);
+        removeLater(hat, 5000);
     }
 }
 
-function removeHatLater(hat) {
-    setTimeout(function () {
-        if (hat && hat.parentNode) {
-            hat.parentNode.removeChild(hat);
-        }
-    }, 5000);
-}
+window.onload = function () {
+    showPhase();
+    connectMemory();
 
-window.addEventListener("DOMContentLoaded", function () {
-    displayPageInformation();
-    subscribeToTabletAnswerEvents();
-});
+    var yesBtn = el("yes-button");
+    var noBtn = el("no-button");
+
+    if (yesBtn) {
+        yesBtn.onclick = function () {
+            sendAnswer("yesAnswer");
+        };
+    }
+
+    if (noBtn) {
+        noBtn.onclick = function () {
+            sendAnswer("noAnswer");
+        };
+    }
+};

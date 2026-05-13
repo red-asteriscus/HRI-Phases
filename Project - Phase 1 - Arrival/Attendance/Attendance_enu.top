@@ -22,13 +22,8 @@ concept:(break2000) \pau=2000\
 concept:(break3000) \pau=3000\
 concept:(break20000) \pau=20000\
 
-u:(~repeat) ^repeat
-
-u:(~thx) ^start(animations/Stand/Gestures/Bow_1) You are very welcome! ~break500
-
 u:(e:onStart) 
     ~break50
-    $displayImage="pics/suit_picture.png"
     $displayImage="pics/suit_picture.png"
     ^start(animations/Stand/Gestures/Hey_1)
     ~break250 Welcome to USEK. ~break50 I am Pepper. ~break500

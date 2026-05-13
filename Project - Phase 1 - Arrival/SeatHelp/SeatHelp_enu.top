@@ -21,17 +21,13 @@ concept:(break1000) \pau=1000\
 concept:(break2000) \pau=2000\
 concept:(break3000) \pau=3000\
 
-u:(~repeat) ^repeat
-
-u:(~thx) ^start(animations/Stand/Gestures/Bow_1) You are very welcome! ~break500
-
 u:(e:onStart) 
     ^start(animations/Stand/Gestures/PointLeft_1)
     $sOg=1
     Are you a staff member ~break50 or a guest?
-u1:(~staff) $tabletArrivalAnswer="staffAnswer" $sOg=0 $displayImage="pics/seating_map.jpg" ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
-u1:(~guest) $tabletArrivalAnswer="guestAnswer" $sOg=0 $displayImage="pics/seating_map.jpg" ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
+u1:(~staff) $tabletArrivalAnswer="staffAnswer" $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
+u1:(~guest) $tabletArrivalAnswer="guestAnswer" $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
 
-u1:(e:staffAnswer) $tabletArrivalAnswer="staffAnswer" $sOg=0 $displayImage="pics/seating_map.jpg" ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
-u1:(e:guestAnswer) $tabletArrivalAnswer="guestAnswer" $sOg=0 $displayImage="pics/seating_map.jpg" ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
+u1:(e:staffAnswer) $tabletArrivalAnswer="staffAnswer" $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_1) Staff seating is reserved in the red section at the front. ^gotoReactivate(anythingElse)
+u1:(e:guestAnswer) $tabletArrivalAnswer="guestAnswer" $displayImage="pics/seating_map.png" ^start(animations/Stand/Gestures/Explain_2) White Section is reserved for general seating. ^gotoReactivate(anythingElse)
 proposal: %anythingElse $onStopped=1

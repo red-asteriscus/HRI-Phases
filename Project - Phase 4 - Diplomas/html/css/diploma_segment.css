@@ -3,7 +3,8 @@
     padding: 0;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -38,17 +39,17 @@ html, body {
 }
 
 #event-label {
+    margin-bottom: 5px;
+    color: #c9a84c;
     font-size: 13px;
     letter-spacing: 4px;
-    color: #c9a84c;
-    margin-bottom: 5px;
 }
 
 #section-label {
+    margin-bottom: 18px;
+    color: #777777;
     font-size: 16px;
     letter-spacing: 4px;
-    color: #777777;
-    margin-bottom: 18px;
 }
 
 #stage-card {
@@ -57,17 +58,17 @@ html, body {
     max-width: 1120px;
     min-height: 535px;
     margin: 0 auto;
+    padding: 18px 0 22px;
     border: 1px solid #eadfc7;
     border-radius: 28px;
     background: #ffffff;
-    padding: 18px 0 22px 0;
 }
 
 #status-pill {
     display: inline-block;
     min-width: 360px;
-    padding: 10px 20px;
     margin-bottom: 14px;
+    padding: 10px 20px;
     border-radius: 26px;
     background: #1a1a2e;
     color: #ffffff;
@@ -83,14 +84,14 @@ html, body {
 }
 
 #intro-label {
+    color: #ffffff;
     font-size: 14px;
     letter-spacing: 3px;
-    color: #ffffff;
 }
 
 #visual-table {
     width: 900px;
-    margin: 0 auto 12px auto;
+    margin: 0 auto 12px;
 }
 
 .visual-cell {
@@ -117,33 +118,31 @@ html, body {
 
 #pepper-visual p,
 #guest-visual p {
-    font-size: 13px;
-    color: #888888;
     margin-top: 8px;
-    text-transform: uppercase;
+    color: #888888;
+    font-size: 13px;
     letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 #center-badge {
     display: inline-block;
     width: 220px;
     min-height: 180px;
-    padding-top: 0;
 }
 
 #speaker-badge {
     width: 72px;
     height: 72px;
-    line-height: 72px;
-    margin: 0 auto 10px auto;
+    margin: 0 auto 10px;
     border-radius: 40px;
     background: #1a1a2e;
     color: #ffffff;
     font-size: 33px;
     font-weight: bold;
+    line-height: 72px;
 }
 
-/* Diploma icon */
 #diploma-icon {
     position: relative;
     width: 150px;
@@ -196,12 +195,11 @@ html, body {
     top: 57px;
     width: 28px;
     height: 28px;
+    border: 4px solid #ffffff;
     border-radius: 18px;
     background: #c9a84c;
-    border: 4px solid #ffffff;
 }
 
-/* Pepper */
 .pepper-head {
     position: relative;
     width: 98px;
@@ -242,22 +240,21 @@ html, body {
 .pepper-body {
     width: 84px;
     height: 60px;
-    margin: -2px auto 0 auto;
+    margin: -2px auto 0;
     border: 4px solid #1a1a2e;
     border-radius: 44px 44px 22px 22px;
     background: #ffffff;
 }
 
-/* Graduate icons */
 #guest-icon-frame {
     position: relative;
     width: 128px;
     height: 128px;
     margin: 0 auto;
+    overflow: hidden;
     border: 5px solid #c9a84c;
     border-radius: 76px;
     background: #fff8e8;
-    overflow: hidden;
 }
 
 .guest-icon {
@@ -266,8 +263,17 @@ html, body {
     height: 128px;
 }
 
-.icon-hair {
+.icon-hair,
+.icon-head,
+.icon-neck,
+.icon-body,
+.icon-accent,
+.both-icon:before,
+.both-icon:after {
     position: absolute;
+}
+
+.icon-hair {
     left: 38px;
     top: 18px;
     width: 54px;
@@ -277,18 +283,16 @@ html, body {
 }
 
 .icon-head {
-    position: absolute;
     left: 43px;
     top: 27px;
     width: 42px;
     height: 42px;
+    border: 4px solid #1a1a2e;
     border-radius: 25px;
     background: #ffffff;
-    border: 4px solid #1a1a2e;
 }
 
 .icon-neck {
-    position: absolute;
     left: 58px;
     top: 70px;
     width: 12px;
@@ -297,7 +301,6 @@ html, body {
 }
 
 .icon-body {
-    position: absolute;
     left: 32px;
     top: 82px;
     width: 66px;
@@ -307,7 +310,6 @@ html, body {
 }
 
 .icon-accent {
-    position: absolute;
     left: 57px;
     top: 88px;
     width: 14px;
@@ -318,14 +320,13 @@ html, body {
 
 .male-icon .icon-hair {
     left: 41px;
-    top: 18px;
     width: 48px;
     height: 27px;
     border-radius: 28px 28px 8px 8px;
-    background: #1a1a2e;
 }
 
-.male-icon .icon-head {
+.male-icon .icon-head,
+.female-icon .icon-head {
     top: 29px;
 }
 
@@ -335,11 +336,6 @@ html, body {
     width: 58px;
     height: 62px;
     border-radius: 36px 36px 24px 24px;
-    background: #1a1a2e;
-}
-
-.female-icon .icon-head {
-    top: 29px;
 }
 
 .both-icon .icon-hair {
@@ -348,7 +344,6 @@ html, body {
     width: 36px;
     height: 23px;
     border-radius: 20px 20px 8px 8px;
-    background: #1a1a2e;
 }
 
 .both-icon .icon-head {
@@ -356,8 +351,8 @@ html, body {
     top: 35px;
     width: 28px;
     height: 28px;
-    border-radius: 18px;
     border: 3px solid #1a1a2e;
+    border-radius: 18px;
 }
 
 .both-icon .icon-neck {
@@ -382,67 +377,67 @@ html, body {
     height: 23px;
 }
 
-.both-icon:before {
+.both-icon:before,
+.both-icon:after {
     content: "";
-    position: absolute;
+    background: #1a1a2e;
+}
+
+.both-icon:before {
     left: 69px;
     top: 20px;
     width: 40px;
     height: 51px;
     border-radius: 25px 25px 15px 15px;
-    background: #1a1a2e;
 }
 
 .both-icon:after {
-    content: "";
-    position: absolute;
     left: 67px;
     top: 76px;
     width: 48px;
     height: 36px;
     border-radius: 26px 26px 8px 8px;
-    background: #1a1a2e;
 }
 
 #speaker-panel {
     width: 86%;
     max-width: 900px;
-    margin: 0 auto 14px auto;
+    margin: 0 auto 14px;
     text-align: center;
 }
 
 #phase-text {
-    margin: 2px auto 9px auto;
-    font-size: 28px;
-    line-height: 1.25;
+    margin: 2px auto 9px;
     color: #c9a84c;
+    font-size: 28px;
     font-weight: bold;
+    line-height: 1.25;
     text-align: center;
 }
 
 #speaker-name {
-    margin: 0 auto 8px auto;
+    margin: 0 auto 8px;
+    color: #1a1a2e;
     font-family: Georgia, Times, serif;
     font-size: 50px;
     font-weight: bold;
     line-height: 1.1;
-    color: #1a1a2e;
     text-align: center;
 }
 
 #speaker-title {
     min-height: 28px;
     margin: 0 auto;
-    font-size: 23px;
     color: #666666;
+    font-size: 23px;
     text-align: center;
 }
 
 #helper-text {
     width: 78%;
-    margin: 10px auto 0 auto;
-    font-size: 17px;
+    margin: 10px auto 0;
     color: #888888;
+    font-size: 17px;
     line-height: 1.35;
     text-align: center;
 }
@@ -464,26 +459,34 @@ html, body {
     animation: buttonPulse 1600ms ease-in-out infinite;
 }
 
-.btn:active {
+.btn:active,
+.btn.sent {
     background: #c9a84c;
     color: #1a1a2e;
 }
 
 .btn.sent {
-    background: #c9a84c;
-    color: #1a1a2e;
     -webkit-animation: none;
     animation: none;
 }
 
-/* Pepper speaking phases */
+body.phase-diploma #pepper-visual,
+body.phase-dean_invitation #pepper-visual,
+body.phase-student1_call #pepper-visual,
+body.phase-student2_call #pepper-visual,
+body.phase-group_congrats #pepper-visual,
+body.phase-student1_wait #guest-visual,
+body.phase-student2_wait #guest-visual,
+body.phase-group_congrats #guest-visual {
+    background: #fff8e8;
+    box-shadow: 0 0 0 4px #f4e8c8;
+}
+
 body.phase-diploma #pepper-visual,
 body.phase-dean_invitation #pepper-visual,
 body.phase-student1_call #pepper-visual,
 body.phase-student2_call #pepper-visual,
 body.phase-group_congrats #pepper-visual {
-    background: #fff8e8;
-    box-shadow: 0 0 0 4px #f4e8c8;
     -webkit-animation: pepperSpeaking 1300ms ease-in-out infinite;
     animation: pepperSpeaking 1300ms ease-in-out infinite;
 }
@@ -495,7 +498,6 @@ body.phase-student2_call #guest-visual {
     opacity: 0.72;
 }
 
-/* Waiting for diploma handoff phases */
 body.phase-student1_wait #pepper-visual,
 body.phase-student2_wait #pepper-visual {
     opacity: 0.45;
@@ -503,14 +505,13 @@ body.phase-student2_wait #pepper-visual {
 
 body.phase-student1_wait #guest-visual,
 body.phase-student2_wait #guest-visual {
-    background: #fff8e8;
-    box-shadow: 0 0 0 4px #f4e8c8;
     -webkit-animation: guestWaiting 1600ms ease-in-out infinite;
     animation: guestWaiting 1600ms ease-in-out infinite;
 }
 
 body.phase-student1_wait #diploma-icon,
-body.phase-student2_wait #diploma-icon {
+body.phase-student2_wait #diploma-icon,
+body.phase-group_congrats #diploma-icon {
     -webkit-animation: diplomaWaiting 1100ms ease-in-out infinite;
     animation: diplomaWaiting 1100ms ease-in-out infinite;
 }
@@ -522,14 +523,13 @@ body.phase-student2_wait #status-dot {
     animation: blinkDot 1200ms linear infinite;
 }
 
-/* Congratulations */
 body.phase-group_congrats #speaker-badge {
-    background: #c9a84c;
-    color: #1a1a2e;
     width: 82px;
     height: 82px;
-    line-height: 82px;
+    background: #c9a84c;
+    color: #1a1a2e;
     font-size: 30px;
+    line-height: 82px;
 }
 
 body.phase-group_congrats #status-pill {
@@ -542,18 +542,10 @@ body.phase-group_congrats #intro-label {
 }
 
 body.phase-group_congrats #guest-visual {
-    background: #fff8e8;
-    box-shadow: 0 0 0 4px #f4e8c8;
     -webkit-animation: guestWaiting 1900ms ease-in-out infinite;
     animation: guestWaiting 1900ms ease-in-out infinite;
 }
 
-body.phase-group_congrats #diploma-icon {
-    -webkit-animation: diplomaWaiting 1100ms ease-in-out infinite;
-    animation: diplomaWaiting 1100ms ease-in-out infinite;
-}
-
-/* Effects */
 #confetti-area,
 #fireworks-area {
     position: absolute;
@@ -566,8 +558,14 @@ body.phase-group_congrats #diploma-icon {
     pointer-events: none;
 }
 
-.confetti-piece {
+.confetti-piece,
+.firework-core,
+.firework-spark,
+.firework-ring {
     position: absolute;
+}
+
+.confetti-piece {
     top: -18px;
     width: 13px;
     height: 13px;
@@ -577,16 +575,17 @@ body.phase-group_congrats #diploma-icon {
     animation: confettiDrop 1700ms linear forwards;
 }
 
-.confetti-piece.dark {
+.confetti-piece.dark,
+.firework-spark.dark {
     background: #1a1a2e;
 }
 
-.confetti-piece.light {
+.confetti-piece.light,
+.firework-spark.light {
     background: #e9d28b;
 }
 
 .firework-core {
-    position: absolute;
     width: 20px;
     height: 20px;
     margin-left: -10px;
@@ -599,7 +598,6 @@ body.phase-group_congrats #diploma-icon {
 }
 
 .firework-spark {
-    position: absolute;
     width: 10px;
     height: 10px;
     margin-left: -5px;
@@ -611,16 +609,7 @@ body.phase-group_congrats #diploma-icon {
     animation: fireworkSpark 1250ms ease-out forwards;
 }
 
-.firework-spark.dark {
-    background: #1a1a2e;
-}
-
-.firework-spark.light {
-    background: #e9d28b;
-}
-
 .firework-ring {
-    position: absolute;
     width: 16px;
     height: 16px;
     margin-left: -8px;
@@ -632,7 +621,6 @@ body.phase-group_congrats #diploma-icon {
     animation: fireworkRing 1250ms ease-out forwards;
 }
 
-/* Animations */
 @-webkit-keyframes pepperSpeaking {
     0% { -webkit-transform: scale(1) translateY(0); }
     35% { -webkit-transform: scale(1.06) translateY(-3px); }

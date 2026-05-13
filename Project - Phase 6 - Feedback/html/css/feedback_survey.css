@@ -268,185 +268,6 @@ body.complete #save-status {
     background: #e9d28b;
 }
 
-@-webkit-keyframes starPress {
-    0% {
-        -webkit-transform: scale(1);
-    }
-
-    45% {
-        -webkit-transform: scale(1.42) rotate(-10deg);
-    }
-
-    100% {
-        -webkit-transform: scale(1) rotate(0deg);
-    }
-}
-
-@keyframes starPress {
-    0% {
-        transform: scale(1);
-    }
-
-    45% {
-        transform: scale(1.42) rotate(-10deg);
-    }
-
-    100% {
-        transform: scale(1) rotate(0deg);
-    }
-}
-
-@-webkit-keyframes confettiDrop {
-    0% {
-        opacity: 1;
-        -webkit-transform: translateY(0) rotate(0deg);
-    }
-
-    100% {
-        opacity: 0;
-        -webkit-transform: translateY(900px) rotate(330deg);
-    }
-}
-
-@keyframes confettiDrop {
-    0% {
-        opacity: 1;
-        transform: translateY(0) rotate(0deg);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(900px) rotate(330deg);
-    }
-}
-
-/* Pepper tablet safety for shorter screens */
-@media (max-height: 720px) {
-    #container {
-        width: 96%;
-        height: 95%;
-        margin-top: 16px;
-        padding: 20px 38px 18px 38px;
-        border-radius: 30px;
-    }
-
-    #event-label {
-        font-size: 14px;
-        margin-bottom: 9px;
-    }
-
-    .divider {
-        font-size: 15px;
-        margin: 7px 0 11px 0;
-    }
-
-    #intro-label {
-        min-width: 370px;
-        margin-bottom: 17px;
-        padding: 12px 30px;
-        font-size: 16px;
-    }
-
-    #question-counter {
-        font-size: 19px;
-        margin-bottom: 13px;
-    }
-
-    #question-text {
-        font-size: 40px;
-        margin-bottom: 12px;
-    }
-
-    #helper-text {
-        font-size: 21px;
-        margin-bottom: 22px;
-    }
-
-    #answers-container {
-        min-height: 135px;
-    }
-
-    .rating-btn {
-        width: 150px;
-        height: 126px;
-        margin: 0 8px 14px 8px;
-        border-radius: 26px;
-    }
-
-    .rating-number {
-        margin-top: 13px;
-        font-size: 31px;
-    }
-
-    .rating-star {
-        margin-top: 6px;
-        font-size: 38px;
-    }
-
-    .rating-label {
-        margin-top: 9px;
-        font-size: 12px;
-    }
-
-    .choice-btn {
-        height: 82px;
-        min-width: 270px;
-        margin-left: 20px;
-        margin-right: 20px;
-        font-size: 30px;
-    }
-
-    #save-status {
-        margin-top: 10px;
-        font-size: 18px;
-    }
-
-    .bottom-divider {
-        margin-top: 16px;
-    }
-
-    body.complete #question-text {
-        font-size: 48px;
-    }
-}
-
-/* Pepper tablet safety for narrow screens */
-@media (max-width: 1050px) {
-    #container {
-        width: 96%;
-        padding-left: 30px;
-        padding-right: 30px;
-    }
-
-    #question-text {
-        font-size: 40px;
-    }
-
-    .rating-btn {
-        width: 148px;
-        height: 126px;
-        margin-left: 7px;
-        margin-right: 7px;
-    }
-
-    .rating-number {
-        font-size: 31px;
-    }
-
-    .rating-star {
-        font-size: 38px;
-    }
-
-    .rating-label {
-        font-size: 12px;
-    }
-}
-
-/* Impressive opening screen before Pepper starts the questions */
-body.waiting {
-    background: #fdfbf7;
-}
-
 body.waiting #wrapper {
     background:
         radial-gradient(circle at 20% 20%, rgba(201, 168, 76, 0.20), transparent 28%),
@@ -563,6 +384,58 @@ body.waiting #question-text:before {
 body.waiting #question-text:after {
     content: "★";
     right: -70px;
+}
+
+@-webkit-keyframes starPress {
+    0% {
+        -webkit-transform: scale(1);
+    }
+
+    45% {
+        -webkit-transform: scale(1.42) rotate(-10deg);
+    }
+
+    100% {
+        -webkit-transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes starPress {
+    0% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.42) rotate(-10deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@-webkit-keyframes confettiDrop {
+    0% {
+        opacity: 1;
+        -webkit-transform: translateY(0) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: translateY(900px) rotate(330deg);
+    }
+}
+
+@keyframes confettiDrop {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(900px) rotate(330deg);
+    }
 }
 
 @-webkit-keyframes waitingTitlePulse {
@@ -741,10 +614,94 @@ body.waiting #question-text:after {
     }
 }
 
-/* Waiting screen safety for smaller Pepper tablet screens */
 @media (max-height: 720px) {
+    #container {
+        height: 95%;
+        margin-top: 16px;
+        padding: 20px 38px 18px 38px;
+        border-radius: 30px;
+    }
+
+    #event-label {
+        font-size: 14px;
+        margin-bottom: 9px;
+    }
+
+    .divider {
+        font-size: 15px;
+        margin: 7px 0 11px 0;
+    }
+
+    #intro-label {
+        min-width: 370px;
+        margin-bottom: 17px;
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+
+    #question-counter {
+        font-size: 19px;
+        margin-bottom: 13px;
+    }
+
+    #question-text {
+        font-size: 40px;
+        margin-bottom: 12px;
+    }
+
+    #helper-text {
+        font-size: 21px;
+        margin-bottom: 22px;
+    }
+
+    #answers-container {
+        min-height: 135px;
+    }
+
+    .rating-btn {
+        width: 150px;
+        height: 126px;
+        margin: 0 8px 14px 8px;
+        border-radius: 26px;
+    }
+
+    .rating-number {
+        margin-top: 13px;
+        font-size: 31px;
+    }
+
+    .rating-star {
+        margin-top: 6px;
+        font-size: 38px;
+    }
+
+    .rating-label {
+        margin-top: 9px;
+        font-size: 12px;
+    }
+
+    .choice-btn {
+        height: 82px;
+        min-width: 270px;
+        margin-left: 20px;
+        margin-right: 20px;
+        font-size: 30px;
+    }
+
+    #save-status {
+        margin-top: 10px;
+        font-size: 18px;
+    }
+
+    .bottom-divider {
+        margin-top: 16px;
+    }
+
+    body.complete #question-text {
+        font-size: 48px;
+    }
+
     body.waiting #container {
-        height: 92%;
         margin-top: 24px;
     }
 
@@ -759,6 +716,37 @@ body.waiting #question-text:after {
 
     body.waiting #question-text:after {
         right: -58px;
+    }
+}
+
+@media (max-width: 1050px) {
+    #container {
+        width: 96%;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    #question-text {
+        font-size: 40px;
+    }
+
+    .rating-btn {
+        width: 148px;
+        height: 126px;
+        margin-left: 7px;
+        margin-right: 7px;
+    }
+
+    .rating-number {
+        font-size: 31px;
+    }
+
+    .rating-star {
+        font-size: 38px;
+    }
+
+    .rating-label {
+        font-size: 12px;
     }
 }
 

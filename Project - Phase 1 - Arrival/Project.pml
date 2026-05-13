@@ -13,43 +13,10 @@
     </Dialogs>
     <Resources>
         <File name="suit picture" src="html/pics/suit_picture.png" />
-        <File name="Graduation_Welcome" src="html/pics/Graduation_Welcome.jpg" />
-        <File name="class_of_2026_pic" src="html/pics/class_of_2026_pic.png" />
-        <File name="congrats_photo" src="html/pics/congrats_photo.jpg" />
-        <File name="diploma_picture" src="html/pics/diploma_picture.png" />
         <File name="seating_map" src="html/pics/seating_map.png" />
-        <File name="seats" src="html/pics/seats.png" />
-        <File name="index" src="html/index.html" />
-        <File name="wlc" src="html/pics/wlc.jpg" />
-        <File name="script" src="html/script.js" />
-        <File name="style" src="html/style.css" />
-        <File name="all" src="html/css/all.css" />
-        <File name="formatting" src="html/css/formatting.css" />
-        <File name="home" src="html/css/home.css" />
-        <File name="w3" src="html/css/w3.css" />
-        <File name="all" src="html/js/all.js" />
-        <File name="displayimage" src="html/js/displayimage.js" />
-        <File name="displayinfo" src="html/js/displayinfo.js" />
-        <File name="fastclick" src="html/js/fastclick.js" />
-        <File name="help" src="html/js/help.js" />
-        <File name="index" src="html/js/index.js" />
-        <File name="jquery" src="html/js/jquery.js" />
-        <File name="qievents" src="html/js/qievents.js" />
-        <File name="vars" src="html/js/vars.js" />
-        <File name="confirmation" src="html/pages/confirmation.html" />
-        <File name="displayimage" src="html/pages/displayimage.html" />
-        <File name="displayinfo" src="html/pages/displayinfo.html" />
-        <File name="displaytext" src="html/pages/displaytext.html" />
-        <File name="getinput" src="html/pages/getinput.html" />
-        <File name="help" src="html/pages/help.html" />
         <File name="arrival" src="html/css/arrival.css" />
         <File name="arrival" src="html/js/arrival.js" />
         <File name="arrival" src="html/pages/arrival.html" />
-        <File name="closing" src="html/pages/closing.html" />
-        <File name="diploma_segment" src="html/pages/diploma_segment.html" />
-        <File name="feedback" src="html/pages/feedback.html" />
-        <File name="introducing_guest" src="html/pages/introducing_guest.html" />
-        <File name="welcome" src="html/pages/welcome.html" />
         <File name="seating_map" src="html/pics/seating_map.jpg" />
     </Resources>
     <Topics>

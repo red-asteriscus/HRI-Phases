@@ -8,7 +8,6 @@ concept:(break50) \pau=50\
 concept:(break500) \pau=500\
 concept:(break1000) \pau=1000\
 
-# Dialogue Logic
 u:(e:onStart)
     $web=1
     ^start(animations/Stand/Gestures/Explain_2)

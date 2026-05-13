@@ -1,12 +1,10 @@
 var activePhase = "guest1_intro";
 var buttonLocked = false;
-var qiSession = null;
 var qiMemory = null;
-var celebrationStarted = false;
 var cleanupTimer = null;
 
 var speakerMap = {
-    "guest1": {
+    guest1: {
         number: "1",
         name: "Dr. Eng. Marcel Daccache",
         title: "Leading Expert in Software Engineering",
@@ -14,7 +12,7 @@ var speakerMap = {
         icon: "male"
     },
 
-    "guest2": {
+    guest2: {
         number: "2",
         name: "Dr. Eng. Lea Rizk",
         title: "Leading Expert in Artificial Intelligence",
@@ -22,7 +20,7 @@ var speakerMap = {
         icon: "female"
     },
 
-    "both": {
+    both: {
         number: "2",
         name: "Thank You",
         title: "To Our Guest Speakers",
@@ -32,159 +30,104 @@ var speakerMap = {
 };
 
 var phaseMap = {
-    "guest1_intro": {
+    guest1_intro: {
         speaker: "guest1",
-        step: "guest1_intro",
         label: "GUEST SPEAKER",
         text: "Please welcome",
-        helper: "",
         buttonText: "Thank you, Pepper",
-        sentText: "Thank you!",
         eventName: "guest1ThankYou",
         confetti: true
     },
 
-    "guest1_speech": {
+    guest1_speech: {
         speaker: "guest1",
-        step: "guest1_speech",
         label: "NOW SPEAKING",
         text: "Guest Speaker 1",
-        helper: "",
         buttonText: "Finish Speech",
-        sentText: "Thank you!",
         eventName: "guest1Finished",
         confetti: false
     },
 
-    "guest1_to_guest2": {
+    guest1_to_guest2: {
         speaker: "guest2",
-        step: "guest1_to_guest2",
         label: "PEPPER INTRODUCES GUEST 2",
         text: "Please welcome",
-        helper: "",
         buttonText: "Thank you, Pepper",
-        sentText: "Thank you!",
         eventName: "guest2ThankYou",
         confetti: true
     },
 
-    "guest2_speech": {
+    guest2_speech: {
         speaker: "guest2",
-        step: "guest2_speech",
         label: "NOW SPEAKING",
         text: "Guest Speaker 2",
-        helper: "",
         buttonText: "Finish Speech",
-        sentText: "Thank you!",
         eventName: "guest2Finished",
         confetti: false
     },
 
-    "closure": {
+    closure: {
         speaker: "both",
-        step: "closure",
         label: "THANK YOU",
         text: "Guest Speaker Session Complete",
-        helper: "",
         buttonText: "",
-        sentText: "",
         eventName: "",
         confetti: true
     }
 };
 
 function getUrlParam(paramName, defaultValue) {
-    var query = window.location.search;
-    var parts;
+    var query = window.location.search.substring(1);
+    var parts = query.split("&");
     var pair;
     var key;
     var value;
     var i;
 
-    if (!query || query.length < 2) {
-        return defaultValue;
-    }
-
-    query = query.substring(1);
-    parts = query.split("&");
-
     for (i = 0; i < parts.length; i++) {
+        if (!parts[i]) {
+            continue;
+        }
+
         pair = parts[i].split("=");
-        key = safeDecode(pair[0]);
+        key = decodeUrlValue(pair[0]);
 
         if (key === paramName) {
-            value = "";
-
-            if (pair.length > 1) {
-                value = safeDecode(pair[1]);
-            }
-
-            return value;
+            value = pair.length > 1 ? pair[1] : "";
+            return decodeUrlValue(value);
         }
     }
 
     return defaultValue;
 }
 
-function safeDecode(value) {
-    var output = value;
+function decodeUrlValue(value) {
+    var decodedValue = value || "";
 
-    if (!output) {
-        return "";
-    }
-
-    output = output.replace(/\+/g, " ");
+    decodedValue = decodedValue.replace(/\+/g, " ");
 
     try {
-        output = decodeURIComponent(output);
+        decodedValue = decodeURIComponent(decodedValue);
     } catch (e) {
-        output = value;
+        decodedValue = value || "";
     }
 
-    return output;
+    return decodedValue;
 }
 
-function normalizePhase(phase) {
-    if (phase === "guest1_speaking") {
-        return "guest1_speech";
+function getCurrentPhase() {
+    var phase = getUrlParam("phase", "guest1_intro");
+
+    if (!phaseMap[phase]) {
+        phase = "guest1_intro";
     }
 
-    if (phase === "guest2_intro") {
-        return "guest1_to_guest2";
-    }
-
-    if (phase === "guest2_speaking") {
-        return "guest2_speech";
-    }
-
-    if (phase === "guest2_done") {
-        return "closure";
-    }
-
-    if (phase === "guest1_waiting" || phase === "guest1_arrived") {
-        return "guest1_intro";
-    }
-
-    if (phase === "guest2_waiting" || phase === "guest2_arrived") {
-        return "guest1_to_guest2";
-    }
-
-    if (phaseMap[phase]) {
-        return phase;
-    }
-
-    return "guest1_intro";
+    return phase;
 }
 
 function initGuestIntroPage() {
-    var phase = getUrlParam("phase", "");
-
-    if (phase === "") {
-        phase = getUrlParam("key", "guest1_intro");
-    }
-
     connectToPepper();
-    setPhase(normalizePhase(phase));
+    renderPhase(getCurrentPhase());
 }
 
 function connectToPepper() {
@@ -194,36 +137,33 @@ function connectToPepper() {
 
     try {
         QiSession(function (session) {
-            qiSession = session;
-
             session.service("ALMemory").then(function (memory) {
                 qiMemory = memory;
+            }, function () {
+                qiMemory = null;
             });
         }, function () {
-            qiSession = null;
             qiMemory = null;
         });
     } catch (e) {
-        qiSession = null;
         qiMemory = null;
     }
 }
 
-function setPhase(phase) {
+function renderPhase(phase) {
     var data;
     var speaker;
     var body;
     var button;
 
-    activePhase = normalizePhase(phase);
+    activePhase = phase;
     data = phaseMap[activePhase];
     speaker = speakerMap[data.speaker];
     body = document.getElementsByTagName("body")[0];
     button = document.getElementById("main-button");
     buttonLocked = false;
-    celebrationStarted = false;
 
-    clearCelebrations();
+    clearEffects();
 
     if (body) {
         body.className = "phase-" + activePhase;
@@ -236,62 +176,45 @@ function setPhase(phase) {
     setText("speaker-name", speaker.name);
     setText("speaker-title", speaker.title);
     setText("phase-text", data.text);
-    setText("helper-text", data.helper);
     setText("main-button", data.buttonText);
 
     if (button) {
         removeClass(button, "sent");
-
-        if (data.buttonText === "") {
-            button.style.display = "none";
-        } else {
-            button.style.display = "inline-block";
-        }
+        button.style.display = data.buttonText === "" ? "none" : "inline-block";
     }
 
-    updatePhaseTrack(data.step);
+    updatePhaseTrack(activePhase);
 
     if (activePhase === "closure") {
-        startCelebration();
+        startClosureEffects();
     }
 }
 
-function updatePhaseTrack(stepName) {
+function updatePhaseTrack(activeStep) {
     var steps = ["guest1_intro", "guest1_speech", "guest1_to_guest2", "guest2_speech", "closure"];
     var i;
-    var el;
 
     for (i = 0; i < steps.length; i++) {
-        el = document.getElementById("step-" + steps[i]);
-        removeClass(el, "active");
+        removeClass(document.getElementById("step-" + steps[i]), "active");
     }
 
-    el = document.getElementById("step-" + stepName);
-    addClass(el, "active");
+    addClass(document.getElementById("step-" + activeStep), "active");
 }
 
 function onMainButton() {
     var data = phaseMap[activePhase];
     var button = document.getElementById("main-button");
 
-    if (!data) {
-        return;
-    }
-
-    if (buttonLocked) {
-        return;
-    }
-
-    if (data.eventName === "") {
+    if (!data || buttonLocked || data.eventName === "") {
         return;
     }
 
     buttonLocked = true;
-    raiseTabletEvent(data.eventName, 1);
+    sendTabletEvent(data.eventName, 1);
 
     if (button) {
         addClass(button, "sent");
-        button.innerHTML = data.sentText || "Done";
+        button.innerHTML = "Thank you!";
     }
 
     if (data.confetti) {
@@ -299,32 +222,39 @@ function onMainButton() {
     }
 }
 
-function raiseTabletEvent(eventName, eventValue) {
+function sendTabletEvent(eventName, eventValue) {
     if (qiMemory) {
         try {
             qiMemory.raiseEvent(eventName, eventValue);
             return;
         } catch (e) {
+            qiMemory = null;
         }
     }
 
-    if (typeof QiSession !== "undefined") {
-        try {
-            QiSession(function (session) {
-                session.service("ALMemory").then(function (memory) {
-                    memory.raiseEvent(eventName, eventValue);
-                });
-            }, function () {});
-        } catch (e2) {
-        }
+    if (typeof QiSession === "undefined") {
+        return;
+    }
+
+    try {
+        QiSession(function (session) {
+            session.service("ALMemory").then(function (memory) {
+                qiMemory = memory;
+                qiMemory.raiseEvent(eventName, eventValue);
+            });
+        }, function () {
+            qiMemory = null;
+        });
+    } catch (e2) {
+        qiMemory = null;
     }
 }
 
 function setText(id, value) {
-    var el = document.getElementById(id);
+    var element = document.getElementById(id);
 
-    if (el) {
-        el.innerHTML = value;
+    if (element) {
+        element.innerHTML = value;
     }
 }
 
@@ -344,26 +274,28 @@ function setGuestIcon(iconType) {
     }
 }
 
-function addClass(el, className) {
-    if (!el) {
+function addClass(element, className) {
+    if (!element) {
         return;
     }
 
-    if (el.className.indexOf(className) === -1) {
-        el.className = el.className + " " + className;
+    if ((" " + element.className + " ").indexOf(" " + className + " ") === -1) {
+        element.className = element.className + " " + className;
     }
 }
 
-function removeClass(el, className) {
-    if (!el) {
+function removeClass(element, className) {
+    if (!element) {
         return;
     }
 
-    el.className = el.className.replace(new RegExp("\\b" + className + "\\b", "g"), "");
-    el.className = el.className.replace(/  +/g, " ");
+    element.className = (" " + element.className + " ")
+        .replace(" " + className + " ", " ")
+        .replace(/  +/g, " ")
+        .replace(/^\s+|\s+$/g, "");
 }
 
-function clearCelebrations() {
+function clearEffects() {
     var confetti = document.getElementById("confetti-area");
     var fireworks = document.getElementById("fireworks-area");
 
@@ -416,13 +348,7 @@ function makeConfetti(count, duration) {
     }, duration + 900);
 }
 
-function startCelebration() {
-    if (celebrationStarted) {
-        return;
-    }
-
-    celebrationStarted = true;
-
+function startClosureEffects() {
     makeConfetti(42, 2100);
 
     setTimeout(function () {
@@ -446,7 +372,7 @@ function startCelebration() {
     }, 950);
 
     cleanupTimer = setTimeout(function () {
-        clearCelebrations();
+        clearEffects();
     }, 4200);
 }
 

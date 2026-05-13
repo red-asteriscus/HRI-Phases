@@ -12,7 +12,6 @@ concept:(break250) \pau=250\
 concept:(break500) \pau=500\
 concept:(break1000) \pau=1000\
 
-# Dialogue Logic
 u:(e:onStart)
     ^start(animations/Stand/Gestures/Explain_11)
     $Ready=1 
@@ -26,9 +25,6 @@ proposal: %ask
 
     u1:(e:yesAnswer) $tabletWelcomeAnswer="yesAnswer" alright let's begin ^gotoReactivate(Speech)
     u1:(e:noAnswer) $tabletWelcomeAnswer="noAnswer" Okay, I'm a robot ~break250 I can wait ~break1000 ~break1000 ~break1000 ~break1000 ~break1000 ^gotoReactivate(Wait)
-    
 
-
-        
 proposal: %Speech $onStopped=1
 proposal: %Wait ~break1000 ^gotoReactivate(ask)

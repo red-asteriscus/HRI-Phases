@@ -21,10 +21,6 @@ concept:(break1000) \pau=1000\
 concept:(break2000) \pau=2000\
 concept:(break3000) \pau=3000\
 
-u:(~repeat) ^repeat
-
-u:(~thx) ^start(animations/Stand/Gestures/Bow_1) You are very welcome! ~break500
-
 u:(e:onStart) 
     ^start(animations/Stand/Gestures/Explain_4)
     $seatHelp=1

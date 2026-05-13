@@ -4,17 +4,14 @@
     padding: 0;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     height: 100%;
     overflow: hidden;
     background-color: #ffffff;
     font-family: Arial, sans-serif;
     color: #1a1a2e;
-}
-
-body {
-    display: block;
 }
 
 #wrapper {
@@ -34,11 +31,11 @@ body {
 }
 
 #container {
-    text-align: center;
     width: 92%;
     max-width: 1100px;
     margin: 0 auto;
     padding: 28px 40px;
+    text-align: center;
 }
 
 #event-label {
@@ -134,12 +131,16 @@ body {
     background: #ffffff;
 }
 
-#pepper-avatar.pulse {
-    animation: pepperPulse 0.65s ease;
-}
-
 #pepper-avatar.wave {
     animation: pepperWave 0.8s ease;
+}
+
+body.phase-ready #pepper-avatar {
+    animation: pepperBreath 1.5s ease-in-out infinite;
+}
+
+body.phase-speech #pepper-avatar {
+    animation: pepperWave 0.8s ease-in-out infinite;
 }
 
 #intro-label {
@@ -151,27 +152,30 @@ body {
 }
 
 #question-text {
+    max-width: 960px;
+    margin: 0 auto 16px auto;
     font-family: Georgia, serif;
     font-size: 44px;
     font-weight: bold;
     line-height: 1.15;
     color: #1a1a2e;
-    margin: 0 auto 16px auto;
-    max-width: 960px;
 }
 
 #phase-text {
+    max-width: 820px;
+    min-height: 54px;
+    margin: 0 auto 12px auto;
     font-size: 22px;
     line-height: 1.25;
     color: #777777;
-    margin: 0 auto 12px auto;
-    max-width: 820px;
-    min-height: 54px;
+}
+
+body.phase-speech #phase-text {
+    color: #555555;
 }
 
 #button-container {
     width: 100%;
-    display: block;
     text-align: center;
 }
 
@@ -181,17 +185,24 @@ body {
     text-align: center;
 }
 
+#cue-panel {
+    display: none;
+    width: 100%;
+    margin-top: 8px;
+    text-align: center;
+}
+
 .btn {
+    min-width: 240px;
+    margin: 10px 12px;
+    padding: 20px 40px;
+    border: none;
+    border-radius: 30px;
     font-family: Arial, sans-serif;
     font-size: 22px;
     font-weight: bold;
-    padding: 20px 40px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
     color: #ffffff;
-    min-width: 240px;
-    margin: 10px 12px;
+    cursor: pointer;
 }
 
 .btn:active {
@@ -206,36 +217,8 @@ body {
     background-color: #e74c3c;
 }
 
-#cue-panel {
-    width: 100%;
-    text-align: center;
-    margin-top: 8px;
-}
-
 .btn-cue {
     background-color: #1a1a2e;
-    color: #ffffff;
-}
-
-#toast {
-    display: none;
-    position: absolute;
-    left: 50%;
-    bottom: 24px;
-    z-index: 20;
-    min-width: 320px;
-    margin-left: -160px;
-    padding: 16px 24px;
-    border-radius: 28px;
-    background: #1a1a2e;
-    color: #ffffff;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-#toast.show {
-    display: block;
-    animation: toastIn 1.6s ease;
 }
 
 #confetti-area {
@@ -264,40 +247,6 @@ body {
 
 .confetti-piece.alt2 {
     background: #2ecc71;
-}
-
-body.phase-ready #pepper-avatar {
-    animation: pepperBreath 1.5s ease-in-out infinite;
-}
-
-body.phase-speech #phase-text {
-    color: #555555;
-}
-
-body.phase-ready #cue-panel {
-    display: none;
-}
-
-body.phase-speech #pepper-avatar {
-    animation: pepperWave 0.8s ease-in-out infinite;
-}
-
-body.phase-speech #cue-panel {
-    display: none;
-}
-
-@keyframes pepperPulse {
-    0% {
-        transform: scale(1);
-    }
-
-    45% {
-        transform: scale(1.08);
-    }
-
-    100% {
-        transform: scale(1);
-    }
 }
 
 @keyframes pepperWave {
@@ -333,28 +282,6 @@ body.phase-speech #cue-panel {
 
     100% {
         transform: translateY(0);
-    }
-}
-
-@keyframes toastIn {
-    0% {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-
-    15% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    85% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(16px);
     }
 }
 
